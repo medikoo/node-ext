@@ -13,7 +13,9 @@
 		"mail": "medikoo+node-ext@medikoo.com",
 		"web": "https://github.com/medikoo/node-ext/issues"
 	},
-	"engines": { "node": ">=0.4.0" },
+	"engines": {
+		"node": ">=0.3.8"
+	},
 	"dependencies": {
 		"es5-ext": "0.5.x"
 	}
