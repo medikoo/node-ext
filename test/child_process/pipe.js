@@ -4,26 +4,17 @@ var path  = require('path')
   , spawn = require('child_process').spawn
   , tPath = path.dirname(__dirname) + '/__playground/pipe-wrapper.js';
 
-module.exports = function (t, a) {
-	var child = spawn(tPath);
-	return {
-		"STDOUT": function (t, a, d) {
-			var std = "";
-			child.stdout.on('data', function (content) {
-				std += content;
-			});
-			child.on('exit', function () {
-				a.equal(std, 'STDOUT\n'); d();
-			});
-		},
-		"STDERR": function (t, a, d) {
-			var std = "";
-			child.stderr.on('data', function (content) {
-				std += content;
-			});
-			child.on('exit', function () {
-				a.equal(std, 'STDERR\n'); d();
-			});
-		}
-	};
+module.exports = function (t, a, d) {
+	var child = spawn(tPath), out = '', err = '';
+	child.stdout.on('data', function (content) {
+		out += content;
+	});
+	child.stderr.on('data', function (content) {
+		err += content;
+	});
+	child.on('exit', function () {
+		a(out, 'STDOUT\n', "STDOUT");
+		a(err, 'STDERR\n', "STDERR");
+		d();
+	});
 };
