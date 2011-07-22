@@ -25,7 +25,7 @@ module.exports = {
 	},
 	"Wrong path": function (t, a, d) {
 		t(pgPath + '/abc/cdf', function (err, path) {
-			a.throws(function () { throw err; }, false); d();
+			a.ok(err instanceof Error); d();
 		});
 	}
 };
