@@ -24,8 +24,8 @@ module.exports = {
 		});
 	},
 	"Wrong path": function (t, a, d) {
-		t(pgPath + '/abc/cdf', function (err, path) {
-			a.ok(err instanceof Error); d();
+		t(pgPath + '/package/abc/cdf', function (err, path) {
+			a.equal(path, pgPath + '/package'); d();
 		});
 	}
 };
