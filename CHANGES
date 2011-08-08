@@ -1,2 +1,15 @@
-v0.1.1
+v0.2.0  --  2011.08.08
+New functions:
+* requireSilent, getRequire, isModuleNotFoundError, requireInContext
+* fs: readdirFilesDeep, copy, copySync
+
+Improvements
+* Renamed getPackageRoot into findPackageRoot
+* Compatibility with es5-ext v0.6
+* Test with TAD
+
+v0.1.1  --  2011.07.11
 * node engine compatibility info (package.json)
+
+v0.1.0  --  2011.07.11
+Initial version
