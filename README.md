@@ -27,7 +27,11 @@ Alternatively you can import each function individually
 
 _Each extension is documented at begin of its source file._
 
-* `getPackageRoot(pckgpath)`
+* `findPackageRoot(path)`
+* `getRequire(path)`
+* `isModuleNotFoundError(error, path)`
+* `requireInContext(path, context)`
+* `requireSilent(path)`
 
 #### child_process
 
@@ -35,8 +39,11 @@ _Each extension is documented at begin of its source file._
 
 #### fs
 
+* `fs.copy`
+* `fs.copySync`
 * `fs.dirExists`
 * `fs.fileExists`
+* `fs.readdirFilesDeep`
 
 #### path
 
