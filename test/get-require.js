@@ -1,14 +1,13 @@
 'use strict';
 
-var path = require('path')
-  , fpath = __dirname + '/__playground/sample.js'
-  , o = require('./__playground/sample');
+var pg = __dirname + '/__playground';
 
 module.exports = {
 	"File path": function (t, a) {
-		a(t(fpath)('./sample'), o);
+		var path = pg + '/package/sample.js';
+		a(t(path)('./sample'), require(path));
 	},
 	"Dir path": function (t, a) {
-		a(t(path.dirname(fpath))('./sample'), o);
+		a(t(pg)('./sample'), require(pg + '/sample'));
 	}
 };
