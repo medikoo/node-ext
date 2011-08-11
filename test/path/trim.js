@@ -9,5 +9,8 @@ module.exports = {
 	},
 	"Empty": function (t, a) {
 		a.equal(t(''), '');
+	},
+	"Root": function (t, a) {
+		a.equal(t('/'), '/');
 	}
 };
