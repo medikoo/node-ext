@@ -1,3 +1,8 @@
+v0.2.2  --  2011.08.11
+* Fixed path.trim (it trimmed root path ('/') to empty string)
+* Fixed getRequire, it now returns require as returned by node, and works in all
+  node versions
+
 v0.2.1  --  2011.08.08
 * Added TAD test suite to devDependencies, configured test commands.
   Tests can be run with 'make test' or 'npm test'
