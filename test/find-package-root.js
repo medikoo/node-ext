@@ -18,6 +18,11 @@ module.exports = {
 			a.equal(path, pgPath + '/package2'); d();
 		});
 	},
+	"Detect by parent node_modules": function (t, a, d) {
+		t(pgPath + '/package2/node_modules/package/module.js', function (err, path) {
+			a.equal(path, pgPath + '/package2/node_modules/package'); d();
+		});
+	},
 	"No package path": function (t, a, d) {
 		t('/', function (err, path) {
 			a.equal(path, null); d();
