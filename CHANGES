@@ -1,3 +1,7 @@
+v0.2.3  --  2011.08.12
+* findPackageRoot: Now folder that resides in 'node_modules' is accepted as
+  package root, it's not that compliant with npm, but node works that way
+
 v0.2.2  --  2011.08.11
 * Fixed path.trim (it trimmed root path ('/') to empty string)
 * Fixed getRequire, it now returns require as returned by node, and works in all
