@@ -28,7 +28,9 @@ module.exports = {
 					d(err);
 					return;
 				}
-				a.deep(result, files); d();
+				a.deep(result, files.map(function (file) {
+					return path + '/' + file
+				})); d();
 			});
 		});
 	}
