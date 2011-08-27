@@ -12,6 +12,6 @@ module.exports = function (t, a, d) {
 			d(err);
 			return;
 		}
-		a.deepEqual(dirs, ['one', 'three', 'two']); d();
+		a.deepEqual(dirs, ['one', 'two']); d();
 	});
 };
