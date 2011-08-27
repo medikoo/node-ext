@@ -3,4 +3,4 @@
 'use strict';
 
 process.stdout.write('OK');
-
+process.stderr.write('ERROR');

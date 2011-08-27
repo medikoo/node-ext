@@ -2,5 +2,4 @@
 
 'use strict';
 
-process.stdout.write('OUT');
-process.stderr.write('ERROR');
+throw new Error('test');
