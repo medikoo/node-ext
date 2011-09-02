@@ -20,6 +20,6 @@ module.exports = function (t, a) {
 		t('module', path = pg + '/beyond/one/dir/dir2', pg + '/beyond/one');
 		a.never();
 	} catch (e) {
-		a(isNotFoundError(e, pg + '/beyond/one/module'), true, "Beyond");
+		a(isNotFoundError(e, 'module'), true, "Beyond");
 	}
 };
