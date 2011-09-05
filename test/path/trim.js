@@ -1,16 +1,8 @@
 'use strict';
 
-module.exports = {
-	"With ending slash": function (t, a) {
-		a.equal(t('raz/dwa/'), 'raz/dwa');
-	},
-	"Without ending slash": function (t, a) {
-		a.equal(t('/raz/dwa'), '/raz/dwa');
-	},
-	"Empty": function (t, a) {
-		a.equal(t(''), '');
-	},
-	"Root": function (t, a) {
-		a.equal(t('/'), '/');
-	}
+module.exports = function (t, a) {
+	a(t('raz/dwa/'), 'raz/dwa', "With ending slash");
+	a(t('/raz/dwa'), '/raz/dwa', "Without ending slash");
+	a(t(''), '', "Empty");
+	a(t('/'), '/', "Root");
 };
