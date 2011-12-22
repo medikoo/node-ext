@@ -11,7 +11,7 @@
 	},
 	"bugs": {
 		"mail": "medikoo+node-ext@medikoo.com",
-		"web": "https://github.com/medikoo/node-ext/issues"
+		"url": "https://github.com/medikoo/node-ext/issues"
 	},
 	"engines": {
 		"node": ">=0.3.8"
