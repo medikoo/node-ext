@@ -1,6 +1,6 @@
 {
 	"name": "next",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"description": "Node.js extensions",
 	"keywords": ["node", "nodejs", "node.js", "extensions", "addons", "extras"],
 	"author": "Mariusz Nowak <medikoo+node-ext@medikoo.com> (http://www.medikoo.com/)",
@@ -11,7 +11,7 @@
 	},
 	"bugs": {
 		"mail": "medikoo+node-ext@medikoo.com",
-		"web": "https://github.com/medikoo/node-ext/issues"
+		"url": "https://github.com/medikoo/node-ext/issues"
 	},
 	"engines": {
 		"node": ">=0.3.8"
