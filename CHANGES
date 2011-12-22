@@ -1,3 +1,6 @@
+v0.2.4  --  2011.12.22
+* requireFirstInTree - method for requiring first named module found up in the directory tree
+
 v0.2.3  --  2011.08.12
 * findPackageRoot: Now folder that resides in 'node_modules' is accepted as
   package root, it's not that compliant with npm, but node works that way
