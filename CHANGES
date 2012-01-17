@@ -1,3 +1,7 @@
+v0.2.5  --  2012.01.17
+* Improved getRequire logic so it doesn't need to create temporary files in module path.
+  Currently it relies on internal Node.js API.
+
 v0.2.4  --  2011.12.22
 * requireFirstInTree - method for requiring first named module found up in the directory tree
 
