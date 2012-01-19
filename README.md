@@ -1,6 +1,6 @@
 # node-ext - Node.js extensions
 
-Functions that complements Node.js API.  
+Functions that complement Node.js API.  
 _It's work in progress, new methods are added when needed._
 
 ## Installation
