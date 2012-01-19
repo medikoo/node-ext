@@ -1,9 +1,10 @@
 {
 	"name": "next",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"description": "Node.js extensions",
 	"keywords": ["node", "nodejs", "node.js", "extensions", "addons", "extras"],
-	"author": "Mariusz Nowak <medikoo+node-ext@medikoo.com> (http://www.medikoo.com/)",
+	"author":
+	"Mariusz Nowak <medikoo+node-ext@medikoo.com> (http://www.medikoo.com/)",
 	"main": "lib/index",
 	"repository": {
 		"type": "git",
@@ -17,10 +18,12 @@
 		"node": ">=0.3.8"
 	},
 	"dependencies": {
-		"es5-ext": "0.6.x",
-		"deferred": "0.2.x"
+		"es5-ext": "0.7.x",
+		"deferred": "0.4.x"
 	},
-	"scripts": { "test": "./node_modules/tad/bin/tad lib" },
+	"scripts": {
+		"test": "node ./node_modules/tad/bin/tad lib"
+	},
 	"devDependencies": {
 		"tad": "0.1.x"
 	}
