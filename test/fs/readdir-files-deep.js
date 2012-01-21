@@ -11,6 +11,6 @@ module.exports = function (t, a, d) {
 		if (err) {
 			throw err;
 		}
-		a.deepEqual(files, ['four', 'one/one/one', 'two/one']); d();
+		a.deepEqual(files.sort(), ['four', 'one/one/one', 'two/one'].sort()); d();
 	});
 };
