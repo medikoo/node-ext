@@ -1,6 +1,6 @@
 {
 	"name": "next",
-	"version": "0.2.7",
+	"version": "0.2.8",
 	"description": "Node.js extensions",
 	"keywords": ["node", "nodejs", "node.js", "extensions", "addons", "extras"],
 	"author":
