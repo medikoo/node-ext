@@ -1,3 +1,6 @@
+v0.2.8  --  2012.01.22
+Fixed requireFirstInTree for Windows
+
 v0.2.7  --  2012.01.22
 Windows support, for everything apart child_process/pipe.js
 Modules now return paths with directory separators for current environment.
