@@ -1,6 +1,7 @@
 'use strict';
 
-var path = require('path')
+var path      = require('path')
+  , normalize = path.normalize
 
   , pgPath, upPath, t;
 
@@ -10,17 +11,17 @@ upPath = path.dirname(path.dirname(__dirname));
 module.exports = {
 	"Detect by package.json": function (t, a, d) {
 		t(pgPath + '/package/one/two/', function (err, path) {
-			a.equal(path, pgPath + '/package'); d();
+			a.equal(normalize(path), normalize(pgPath + '/package')); d();
 		});
 	},
 	"Detect by node_modules": function (t, a, d) {
 		t(pgPath + '/package2/one/two/samplefile', function (err, path) {
-			a.equal(path, pgPath + '/package2'); d();
+			a.equal(normalize(path), normalize(pgPath + '/package2')); d();
 		});
 	},
 	"Detect by parent node_modules": function (t, a, d) {
 		t(pgPath + '/package2/node_modules/package/module.js', function (err, path) {
-			a.equal(path, pgPath + '/package2/node_modules/package'); d();
+			a.equal(normalize(path), normalize(pgPath + '/package2/node_modules/package')); d();
 		});
 	},
 	"No package path": function (t, a, d) {
@@ -30,7 +31,7 @@ module.exports = {
 	},
 	"Wrong path": function (t, a, d) {
 		t(pgPath + '/package/abc/cdf', function (err, path) {
-			a.equal(path, pgPath + '/package'); d();
+			a.equal(normalize(path), normalize(pgPath + '/package')); d();
 		});
 	}
 };

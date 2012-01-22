@@ -19,8 +19,8 @@ module.exports = {
 	"Different paths": function (t, a) {
 		a.equal(t('/a/b/c/', '/e/f/g/'), '../../../e/f/g/');
 	},
-	"ENV.pwd": function (t, a) {
-		a.equal(t(__dirname + '/a/b/'), t(process.env.PWD, __dirname + '/a/b/'));
+	"CWD": function (t, a) {
+		a.equal(t(__dirname + '/a/b/'), t(process.cwd(), __dirname + '/a/b/'));
 	},
 	"Error on relative from": function (t, a) {
 		a.throws(function () {

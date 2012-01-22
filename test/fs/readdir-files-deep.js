@@ -1,6 +1,7 @@
 'use strict';
 
 var path = require('path')
+  , normalize = path.normalize
 
   , pgPath;
 
@@ -11,6 +12,7 @@ module.exports = function (t, a, d) {
 		if (err) {
 			throw err;
 		}
-		a.deepEqual(files.sort(), ['four', 'one/one/one', 'two/one'].sort()); d();
+		a.deepEqual(files.sort(), ['four', normalize('one/one/one'),
+			normalize('two/one')].sort()); d();
 	});
 };

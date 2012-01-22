@@ -1,6 +1,8 @@
 'use strict';
 
-var dirname = require('path').dirname
+var path      = require('path')
+  , dirname   = path.dirname
+  , normalize = path.normalize
   , readdir = require('../../lib/fs/readdir-files-deep')
 
   , pg = dirname(__dirname) + '/__playground';
@@ -13,7 +15,7 @@ module.exports = {
 				d(err);
 				return;
 			}
-			a.deep(result, [path]); d();
+			a.deep(result, [normalize(path)]); d();
 		});
 	},
 	"Directory": function (t, a, d) {
@@ -28,9 +30,9 @@ module.exports = {
 					d(err);
 					return;
 				}
-				a.deep(result, files.map(function (file) {
-					return path + '/' + file
-				})); d();
+				a.deep(result.sort(), files.map(function (file) {
+					return normalize(path + '/' + file);
+				}).sort()); d();
 			});
 		});
 	}
