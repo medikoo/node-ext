@@ -1,3 +1,11 @@
+v0.2.7  --  2012.01.22
+Windows support, for everything apart child_process/pipe.js
+Modules now return paths with directory separators for current environment.
+Added two functions:
+* path/normalize - It's same as Node.js however it always returns paths with
+  separators for given environment and always strips slashes
+* path/separator - Returns directory separator for current environment
+
 v0.2.6  --  2012.01.21
 New functions:
 * fs/filesAtPath - Return all files at path (if path is file return itself if
