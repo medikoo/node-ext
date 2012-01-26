@@ -12,7 +12,7 @@ module.exports = function (t, a, d) {
 		if (err) {
 			throw err;
 		}
-		a.deepEqual(files.sort(), ['four', normalize('one/one/one'),
+		a.deepEqual(files.sort(), ['four', 'five', normalize('one/one/one'),
 			normalize('two/one')].sort()); d();
 	});
 };

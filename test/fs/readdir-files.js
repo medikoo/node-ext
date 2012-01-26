@@ -12,6 +12,6 @@ module.exports = function (t, a, d) {
 			d(err);
 			return;
 		}
-		a.deepEqual(dirs.sort(), ['one', 'two'].sort()); d();
+		a.deepEqual(dirs.sort(), ['five', 'four'].sort()); d();
 	});
 };
