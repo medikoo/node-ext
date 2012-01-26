@@ -1,3 +1,7 @@
+v0.2.10  --  2012.01.26
+Improved `readdirFilesDeep`, it's much faster now - rewritten it from promises
+to callbacks style and it doesn't use fs.lstat for each file anymore
+
 v0.2.9  --  2012.01.26
 Added `readdirFiles` which returns all files in given directory
 
