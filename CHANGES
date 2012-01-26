@@ -1,3 +1,6 @@
+v0.2.9  --  2012.01.26
+Added `readdirFiles` which returns all files in given directory
+
 v0.2.8  --  2012.01.22
 Fixed requireFirstInTree for Windows
 
