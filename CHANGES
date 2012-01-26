@@ -1,3 +1,7 @@
+v0.2.11  --  2012.01.26
+New version of `readdirFilesDeep` was vulnerable to loops introduced by
+symlinks. Updated version doesn't follow symlinks.
+
 v0.2.10  --  2012.01.26
 Improved `readdirFilesDeep`, it's much faster now - rewritten it from promises
 to callbacks style and it doesn't use fs.lstat for each file anymore
