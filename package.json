@@ -19,7 +19,8 @@
 	},
 	"dependencies": {
 		"es5-ext": "0.7.x",
-		"deferred": "0.4.x"
+		"deferred": "0.4.x",
+		"minimatch": "0.1.x"
 	},
 	"scripts": {
 		"test": "node ./node_modules/tad/bin/tad lib"
