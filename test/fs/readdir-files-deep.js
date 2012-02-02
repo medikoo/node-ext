@@ -12,7 +12,8 @@ module.exports = function (t) {
 		"": function (a, d) {
 			t(pgPath, function (err, files) {
 				if (err) {
-					throw err;
+					d(err);
+					return;
 				}
 				a.deepEqual(files.sort(), [
 					'.ignore', 'eleven', 'five', 'four', 'nine', 'nine.foo', 'nine.keep',
@@ -28,10 +29,27 @@ module.exports = function (t) {
 					'two/one'].map(normalize).sort()); d();
 			});
 		},
+		"pattern": function (a, d) {
+			t(pgPath, { pattern: /^five|nine.*$/ }, function (err, files) {
+				if (err) {
+					d(err);
+					return;
+				}
+				a.deepEqual(files.sort(), [
+					'five', 'nine', 'nine.foo', 'nine.keep',
+
+					'one/five', 'one/nine', 'one/nine.bar',
+					'one/nine.keep',
+
+					'one/one/nine',
+					'one/one/nine.else', 'one/one/nine.keep'].map(normalize).sort()); d();
+			});
+		},
 		"ignorefile": function (a, d) {
 			t(pgPath, { ignorefile: '.ignore' }, function (err, files) {
 				if (err) {
-					throw err;
+					d(err);
+					return;
 				}
 				a.deepEqual(files.sort(), [
 					'eleven', 'four', 'nine', 'nine.keep',
@@ -44,6 +62,22 @@ module.exports = function (t) {
 
 					'two/one'].map(normalize).sort()); d();
 			});
+		},
+		"pattern & ignorefile": function (a, d) {
+			t(pgPath, { pattern: /^five|nine.*$/, ignorefile: '.ignore' },
+				function (err, files) {
+					if (err) {
+						d(err);
+						return;
+					}
+					a.deepEqual(files.sort(), [
+						'nine', 'nine.keep',
+
+						'one/nine',
+						'one/nine.keep',
+
+						'one/one/nine', 'one/one/nine.keep'].map(normalize).sort()); d();
+				});
 		}
 	};
 };
