@@ -12,7 +12,7 @@ module.exports = function (t, a, d) {
 			d(err);
 			return;
 		}
-		a.deepEqual(dirs.sort(), ['.ignore', 'eleven', 'five', 'four', 'nine',
-			'nine.foo', 'nine.keep', 'seven', 'six', 'ten'].sort()); d();
+		a.deepEqual(dirs.sort(), ['.gitignore', '.ignore', 'eleven', 'five', 'four',
+			'nine', 'nine.foo', 'nine.keep', 'seven', 'six', 'ten'].sort()); d();
 	});
 };
