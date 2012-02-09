@@ -1,0 +1,7 @@
+indent 2
+maxlen 80
+bitwise
+eqeq
+nomen
+plusplus
+predef __dirname, global, process
