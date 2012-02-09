@@ -2,7 +2,7 @@
 
 var resolve = require('path').resolve
 
-, pgpath = resolve(__dirname, '../__playground/dirscan');
+  , pgpath = resolve(__dirname, '../__playground/dirscan');
 
 module.exports = function (t) {
 	return {
@@ -12,7 +12,8 @@ module.exports = function (t) {
 					d(err);
 					return;
 				}
-				a(result, true); d();
+				a(result, true);
+				d();
 			});
 		},
 		"u": function (a, d) {
@@ -21,7 +22,8 @@ module.exports = function (t) {
 					d(err);
 					return;
 				}
-				a(result, true); d();
+				a(result, true);
+				d();
 			});
 		},
 		"None": function (a, d) {
@@ -30,7 +32,8 @@ module.exports = function (t) {
 					d(err);
 					return;
 				}
-				a(result, false); d();
+				a(result, false);
+				d();
 			});
 		}
 	};

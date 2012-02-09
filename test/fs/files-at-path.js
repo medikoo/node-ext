@@ -15,7 +15,8 @@ module.exports = {
 				d(err);
 				return;
 			}
-			a.deep(result, [normalize(path)]); d();
+			a.deep(result, [normalize(path)]);
+			d();
 		});
 	},
 	"Directory": function (t, a, d) {
@@ -32,9 +33,9 @@ module.exports = {
 				}
 				a.deep(result.sort(), files.map(function (file) {
 					return normalize(path + '/' + file);
-				}).sort()); d();
+				}).sort());
+				d();
 			});
 		});
 	}
 };
-

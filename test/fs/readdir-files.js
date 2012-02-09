@@ -13,6 +13,7 @@ module.exports = function (t, a, d) {
 			return;
 		}
 		a.deepEqual(dirs.sort(), ['.gitignore', '.ignore', 'eleven', 'five', 'four',
-			'nine', 'nine.foo', 'nine.keep', 'seven', 'six', 'ten'].sort()); d();
+			'nine', 'nine.foo', 'nine.keep', 'seven', 'six', 'ten'].sort());
+		d();
 	});
 };

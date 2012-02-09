@@ -13,8 +13,8 @@ module.exports = function (t, a) {
 	try {
 		require(path = pg + '/sample-error');
 		a.never("Syntax error");
-	} catch (e) {
-		a(t(e, path), false, "Syntax error");
+	} catch (e2) {
+		a(t(e2, path), false, "Syntax error");
 	}
 	a.ok(t.token, "Exposes token");
 	a.not(t.pattern.indexOf(t.token), -1, "Exposes pattern");
