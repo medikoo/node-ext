@@ -1,3 +1,21 @@
+v0.2.12  --  2012.02.10
+Fixes:
+* resolve returned by getRequire stopped working with Node v0.6.10 (behavior of
+  internal _resolveFilename have changed)
+
+Addons:
+* fs.isExecutable - checks whether file at given path is executable (has
+  execution rights for any group)
+
+Improvements:
+* readdirFilesDeep now takes additional options:
+  * ignorefile - filter files by glob patterns found in files with that name
+  * globignore - filter files by list of glob patterns
+  * git - filter files by patterns found in .gitignore (additionally ignore
+    `.git` and `.gitignore` pats)
+  * pattern - Return only files that match given pattern
+* All code is now cleaned up to JSLint suggestions
+
 v0.2.11  --  2012.01.26
 New version of `readdirFilesDeep` was vulnerable to loops introduced by
 symlinks. Updated version doesn't follow symlinks.
