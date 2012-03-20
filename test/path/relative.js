@@ -21,15 +21,5 @@ module.exports = {
 	},
 	"CWD": function (t, a) {
 		a.equal(t(__dirname + '/a/b/'), t(process.cwd(), __dirname + '/a/b/'));
-	},
-	"Error on relative from": function (t, a) {
-		a.throws(function () {
-			t('raz/dwa', '/fad/ra/');
-		});
-	},
-	"Error on relative to": function (t, a) {
-		a.throws(function () {
-			t('/raz/dwa', 'fad/ra/');
-		});
 	}
 };
