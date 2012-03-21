@@ -1,7 +1,7 @@
 'use strict';
 
 var join = require('path').join
-  , pg = require('path').join(__dirname, '__playground');
+  , pg = join(__dirname, '__playground');
 
 module.exports = {
 	"File path": function (t, a) {
