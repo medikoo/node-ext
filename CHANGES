@@ -1,3 +1,11 @@
+v0.2.13  --  2012.03.22
+Fixes
+* All modules should now resolve paths properly on both *nix and windows
+  systems, we rely now on node's path.resolve and path.join (let's not speak of
+  previously used solution).
+* Removed symlink tests, for interoperability we shouldn't use symlinks in main
+  code
+
 v0.2.12  --  2012.02.10
 Fixes:
 * resolve returned by getRequire stopped working with Node v0.6.10 (behavior of
