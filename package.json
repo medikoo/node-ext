@@ -1,32 +1,39 @@
 {
-	"name": "next",
-	"version": "0.2.13",
-	"description": "Node.js extensions",
-	"keywords": ["node", "nodejs", "node.js", "extensions", "addons", "extras"],
-	"author":
-	"Mariusz Nowak <medikoo+node-ext@medikoo.com> (http://www.medikoo.com/)",
-	"main": "lib/index",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/medikoo/node-ext.git"
-	},
-	"bugs": {
-		"mail": "medikoo+node-ext@medikoo.com",
-		"url": "https://github.com/medikoo/node-ext/issues"
-	},
-	"engines": {
-		"node": ">=0.3.8"
-	},
-	"dependencies": {
-		"es5-ext": "git://github.com/medikoo/es5-ext.git",
-		"deferred": "0.4.x",
-		"minimatch": "0.2.x"
-	},
-	"scripts": {
-		"test": "node ./node_modules/tad/bin/tad lib",
-		"lint": "node ./node_modules/jslint/bin/jslint.js --color --git"
-	},
-	"devDependencies": {
-		"tad": "0.1.x"
-	}
+  "name": "next",
+  "version": "0.2.13",
+  "description": "Node.js extensions",
+  "keywords": [
+    "addons",
+    "extensions",
+    "extras",
+    "node",
+    "nodejs",
+    "node.js"
+  ],
+  "author":
+  "Mariusz Nowak <medikoo+node-ext@medikoo.com> (http://www.medikoo.com/)",
+  "main": "lib/index",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/medikoo/node-ext.git"
+  },
+  "bugs": {
+    "mail": "medikoo+node-ext@medikoo.com",
+    "url": "https://github.com/medikoo/node-ext/issues"
+  },
+  "engines": {
+    "node": ">=0.3.8"
+  },
+  "dependencies": {
+    "es5-ext": "git://github.com/medikoo/es5-ext.git",
+    "deferred": "0.4.x",
+    "minimatch": "0.2.x"
+  },
+  "scripts": {
+    "test": "node ./node_modules/tad/bin/tad lib",
+    "lint": "node ./node_modules/jslint/bin/jslint.js --color --git"
+  },
+  "devDependencies": {
+    "tad": "0.1.x"
+  }
 }
