@@ -10,15 +10,14 @@
     "nodejs",
     "node.js"
   ],
-  "author":
-  "Mariusz Nowak <medikoo+node-ext@medikoo.com> (http://www.medikoo.com/)",
+  "author": "Mariusz Nowak <medikoo+node-ext@medikoo.com> (http://www.medikoo.com/)",
   "main": "lib/index",
   "repository": {
     "type": "git",
     "url": "git://github.com/medikoo/node-ext.git"
   },
   "bugs": {
-    "mail": "medikoo+node-ext@medikoo.com",
+    "email": "medikoo+node-ext@medikoo.com",
     "url": "https://github.com/medikoo/node-ext/issues"
   },
   "engines": {
@@ -26,7 +25,7 @@
   },
   "dependencies": {
     "es5-ext": "git://github.com/medikoo/es5-ext.git",
-    "deferred": "git://github.com/medikoo/deferred.git",
+    "deferred": "0.5.x",
     "minimatch": "0.2.x"
   },
   "scripts": {
@@ -35,5 +34,6 @@
   },
   "devDependencies": {
     "tad": "0.1.x"
-  }
+  },
+  "optionalDependencies": {}
 }
