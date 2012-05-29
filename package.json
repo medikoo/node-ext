@@ -24,7 +24,7 @@
     "node": ">=0.3.8"
   },
   "dependencies": {
-    "es5-ext": "git://github.com/medikoo/es5-ext.git",
+    "es5-ext": "0.8.x",
     "deferred": "0.5.x",
     "minimatch": "0.2.x"
   },
