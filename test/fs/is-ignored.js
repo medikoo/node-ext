@@ -45,6 +45,21 @@ module.exports = function (t) {
 			t(resolve(pgPath, 'one/seven'), '.ignore')(function (r) {
 				a(r, true);
 			}).end(d);
+		},
+		"Two files: override to exclude": function (a, d) {
+			t(resolve(pgPath, 'nine.keep'), ['.gitignore', '.ignore'])(function (r) {
+				a(r, false);
+			}).end(d);
+		},
+		"Two files: override to ignore": function (a, d) {
+			t(resolve(pgPath, 'nine.keep'), ['.ignore', '.gitignore'])(function (r) {
+				a(r, true);
+			}).end(d);
+		},
+		"Two files: ignore in first": function (a, d) {
+			t(resolve(pgPath, 'one/eleven'), ['.gitignore', '.ignore'])(function (r) {
+				a(r, true);
+			}).end(d);
 		}
 	}
 };
