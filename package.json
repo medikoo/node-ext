@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "es5-ext": "0.8.x",
-    "deferred": "0.5.x",
+    "deferred": "git://github.com/medikoo/deferred.git",
     "minimatch": "0.2.x"
   },
   "scripts": {
