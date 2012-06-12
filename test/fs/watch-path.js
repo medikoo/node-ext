@@ -32,11 +32,11 @@ module.exports = function (t, a, d) {
 
 	delay(function () {
 		return mkdir(dirPath);
-	}, 10)()(delay(function () {
+	}, 20)()(delay(function () {
 		a(ondirchange.shift(), 'create', "Dir: Dir created");
 		a(onfilechange.shift(), undefined, "File: Dir created");
 		return writeFile(filePath, 'raz');
-	}, 10))(delay(function () {
+	}, 20))(delay(function () {
 		a(ondirchange.shift(), 'change', "Dir: File created");
 		a(onfilechange.shift(), 'create', "File: File created");
 		return open(filePath, 'a')(function (fd) {
@@ -44,34 +44,34 @@ module.exports = function (t, a, d) {
 				return close(fd);
 			});
 		});
-	}, 10))(delay(function () {
+	}, 20))(delay(function () {
 		a(ondirchange.shift(), undefined, "Dir: File changed");
 		a(onfilechange.shift(), 'change', "File: File changed");
 		return unlink(filePath);
-	}, 10))(delay(function () {
+	}, 20))(delay(function () {
 		a(ondirchange.shift(), 'change', "Dir: File removed");
 		a(onfilechange.shift(), 'remove', "File: File removed");
 		return rmdir(dirPath);
-	}, 10))(delay(function () {
+	}, 20))(delay(function () {
 		a(ondirchange.shift(), 'remove', "Dir: Dir removed");
 		a(onfilechange.shift(), undefined, "File: Dir removed");
 		return mkdir(dirPath);
-	}, 10))(delay(function () {
+	}, 20))(delay(function () {
 		a(ondirchange.shift(), 'create', "Dir: Dir created #2");
 		a(onfilechange.shift(), undefined, "File: Dir created #2");
 		return writeFile(filePath, 'raz');
-	}, 10))(delay(function () {
+	}, 20))(delay(function () {
 		a(ondirchange.shift(), 'change', "Dir: File created #2");
 		a(onfilechange.shift(), 'create', "File: File created #2");
 		return unlink(filePath);
-	}, 10))(delay(function () {
+	}, 20))(delay(function () {
 		a(ondirchange.shift(), 'change', "Dir: File removed #2");
 		a(onfilechange.shift(), 'remove', "File: File removed #2");
 		return rmdir(dirPath);
-	}, 10))(delay(function () {
+	}, 20))(delay(function () {
 		a(ondirchange.shift(), 'remove', "Dir: Dir removed #2");
 		a(onfilechange.shift(), undefined, "File: Dir removed #2");
 		a.deep(ondirchange, [], "Dir: Extra events");
 		a.deep(onfilechange, [], "File: Extra events");
-	}, 10)).end(d);
+	}, 20)).end(d);
 };
