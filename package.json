@@ -24,8 +24,9 @@
     "node": ">=0.4"
   },
   "dependencies": {
-    "es5-ext": "0.8.x",
     "deferred": "git://github.com/medikoo/deferred.git",
+    "es5-ext": "git://github.com/medikoo/es5-ext.git",
+    "event-emitter": "git://github.com/medikoo/event-emitter.git",
     "minimatch": "0.2.x"
   },
   "scripts": {
