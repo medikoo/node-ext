@@ -1,51 +1,14 @@
 # node-ext - Node.js extensions
 
 Functions that complement Node.js API.  
-_It's work in progress, new methods are added when needed._
+Currently in very experimental state, While 95% of API is well tested and will work as expected, whole project is scheduled for big reorganization which with full documentation will land in 0.3 release.
 
 ## Installation
 
 	$ npm install next
 
-## Usage
+## Test
 
-	var nfs   = require('next/lib/fs')
-	  , npath = require('next/lib/path');
+Tests also gives better idea about state of the API
 
-	nfs.fileExists(filepath, callback);
-	dirpath = npath.trim(dirpath);
-
-Alternatively you can import each function individually
-
-	var fileExists = require('next/lib/fs/file-exists')
-	  , pathTrim   = require('next/lib/path/trim');
-
-	fileExists(filepath, callback);
-	dirpath = pathTrim(dirpath);
-
-### Extensions
-
-_Each extension is documented at begin of its source file._
-
-* `findPackageRoot(path)`
-* `getRequire(path)`
-* `isModuleNotFoundError(error, path)`
-* `requireInContext(path, context)`
-* `requireSilent(path)`
-
-#### child_process
-
-* `child_process.pipe`
-
-#### fs
-
-* `fs.copy`
-* `fs.copySync`
-* `fs.dirExists`
-* `fs.fileExists`
-* `fs.readdirFilesDeep`
-
-#### path
-
-* `path.relative`
-* `path.trim`
+	$ npm test
