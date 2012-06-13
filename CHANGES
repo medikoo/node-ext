@@ -1,3 +1,10 @@
+v0.2.14  --  2012.06.13
+* Update up to v0.8 branch of es5-ext and v0.5 branch of deferred
+* fs.writeFile - safe version of original writeFile, this one can be called
+  many times in a row (content passed to last call will be written to file)
+* fs.watchPath and fs.isIgnored (still in experimental state - confirmed to work
+  on OSX only)
+
 v0.2.13  --  2012.03.22
 Fixes
 * All modules should now resolve paths properly on both *nix and windows
