@@ -7,6 +7,7 @@ var fs        = require('fs')
   , promisify = deferred.promisify
   , mkdir     = promisify(fs.mkdir)
   , open      = promisify(fs.open)
+  , rename    = promisify(fs.rename)
   , write     = promisify(fs.write)
   , close     = promisify(fs.close)
   , writeFile = promisify(fs.writeFile)
@@ -47,6 +48,14 @@ module.exports = function (t, a, d) {
 	}, 20))(delay(function () {
 		a(ondirchange.shift(), undefined, "Dir: File changed");
 		a(onfilechange.shift(), 'change', "File: File changed");
+		return rename(filePath, filePath + 'r');
+	}, 20))(delay(function () {
+		a(ondirchange.shift(), 'change', "Dir: File renamed");
+		a(onfilechange.shift(), 'remove', "File: File renamed");
+		return rename(filePath + 'r', filePath);
+	}, 20))(delay(function () {
+		a(ondirchange.shift(), 'change', "Dir: File renamed back");
+		a(onfilechange.shift(), 'create', "File: File renamed back");
 		return unlink(filePath);
 	}, 20))(delay(function () {
 		a(ondirchange.shift(), 'change', "Dir: File removed");
