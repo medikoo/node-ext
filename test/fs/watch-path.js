@@ -18,8 +18,8 @@ var fs        = require('fs')
 
 module.exports = function (t, a, d) {
 	var ondirchange = [], onfilechange = [], tmpPath, tmpFilePath, alt
-	  , dirPath = resolve(pgPath, 'tmp')
-	  , filePath = resolve(dirPath, 'tmp')
+	  , dirPath = resolve(pgPath, 'tmpdir')
+	  , filePath = resolve(dirPath, 'tmpfile')
 	  , dirCurrent, fileCurrent
 
 	t(dirPath).on('change', function (e) {
