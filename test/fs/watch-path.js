@@ -23,64 +23,80 @@ module.exports = function (t, a, d) {
 	  , dirCurrent, fileCurrent
 
 	t(dirPath).on('change', function (e) {
-		// console.log("RECEIVED: DIR CHANGE", e.type);
 		ondirchange.push(e.type);
 	});
 	t(filePath).on('change', function (e) {
-		// console.log("RECEIVED: FILE CHANGE", e.type);
 		onfilechange.push(e.type);
 	});
 
 	delay(function () {
 		return mkdir(dirPath);
 	}, 20)()(delay(function () {
-		a(ondirchange.shift(), 'create', "Dir: Dir created");
-		a(onfilechange.shift(), undefined, "File: Dir created");
+		a(String(ondirchange), 'create', "Dir: Dir created");
+		a(String(onfilechange), '', "File: Dir created");
+		ondirchange = [];
+		onfilechange = [];
 		return writeFile(filePath, 'raz');
 	}, 20))(delay(function () {
-		a(ondirchange.shift(), 'change', "Dir: File created");
-		a(onfilechange.shift(), 'create', "File: File created");
+		a(String(ondirchange), 'change', "Dir: File created");
+		a(String(onfilechange), 'create', "File: File created");
+		ondirchange = [];
+		onfilechange = [];
 		return open(filePath, 'a')(function (fd) {
 			return write(fd, new Buffer('dwatrzy'), 0, 3, null)(function () {
 				return close(fd);
 			});
 		});
 	}, 20))(delay(function () {
-		a(ondirchange.shift(), undefined, "Dir: File changed");
-		a(onfilechange.shift(), 'change', "File: File changed");
+		a(String(ondirchange), '', "Dir: File changed");
+		a(String(onfilechange), 'change', "File: File changed");
+		ondirchange = [];
+		onfilechange = [];
 		return rename(filePath, filePath + 'r');
 	}, 20))(delay(function () {
-		a(ondirchange.shift(), 'change', "Dir: File renamed");
-		a(onfilechange.shift(), 'remove', "File: File renamed");
+		a(String(ondirchange), 'change', "Dir: File renamed");
+		a(String(onfilechange), 'remove', "File: File renamed");
+		ondirchange = [];
+		onfilechange = [];
 		return rename(filePath + 'r', filePath);
 	}, 20))(delay(function () {
-		a(ondirchange.shift(), 'change', "Dir: File renamed back");
-		a(onfilechange.shift(), 'create', "File: File renamed back");
+		a(String(ondirchange), 'change', "Dir: File renamed back");
+		a(String(onfilechange), 'create', "File: File renamed back");
+		ondirchange = [];
+		onfilechange = [];
 		return unlink(filePath);
 	}, 20))(delay(function () {
-		a(ondirchange.shift(), 'change', "Dir: File removed");
-		a(onfilechange.shift(), 'remove', "File: File removed");
+		a(String(ondirchange), 'change', "Dir: File removed");
+		a(String(onfilechange), 'remove', "File: File removed");
+		ondirchange = [];
+		onfilechange = [];
 		return rmdir(dirPath);
 	}, 20))(delay(function () {
-		a(ondirchange.shift(), 'remove', "Dir: Dir removed");
-		a(onfilechange.shift(), undefined, "File: Dir removed");
+		a(String(ondirchange), 'remove', "Dir: Dir removed");
+		a(String(onfilechange), '', "File: Dir removed");
+		ondirchange = [];
+		onfilechange = [];
 		return mkdir(dirPath);
 	}, 20))(delay(function () {
-		a(ondirchange.shift(), 'create', "Dir: Dir created #2");
-		a(onfilechange.shift(), undefined, "File: Dir created #2");
+		a(String(ondirchange), 'create', "Dir: Dir created #2");
+		a(String(onfilechange), '', "File: Dir created #2");
+		ondirchange = [];
+		onfilechange = [];
 		return writeFile(filePath, 'raz');
 	}, 20))(delay(function () {
-		a(ondirchange.shift(), 'change', "Dir: File created #2");
-		a(onfilechange.shift(), 'create', "File: File created #2");
+		a(String(ondirchange), 'change', "Dir: File created #2");
+		a(String(onfilechange), 'create', "File: File created #2");
+		ondirchange = [];
+		onfilechange = [];
 		return unlink(filePath);
 	}, 20))(delay(function () {
-		a(ondirchange.shift(), 'change', "Dir: File removed #2");
-		a(onfilechange.shift(), 'remove', "File: File removed #2");
+		a(String(ondirchange), 'change', "Dir: File removed #2");
+		a(String(onfilechange), 'remove', "File: File removed #2");
+		ondirchange = [];
+		onfilechange = [];
 		return rmdir(dirPath);
 	}, 20))(delay(function () {
-		a(ondirchange.shift(), 'remove', "Dir: Dir removed #2");
-		a(onfilechange.shift(), undefined, "File: Dir removed #2");
-		a.deep(ondirchange, [], "Dir: Extra events");
-		a.deep(onfilechange, [], "File: Extra events");
+		a(String(ondirchange), 'remove', "Dir: Dir removed #2");
+		a(String(onfilechange), '', "File: Dir removed #2");
 	}, 20)).end(d);
 };
