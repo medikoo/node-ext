@@ -38,7 +38,7 @@ module.exports = function (t, a, d) {
 		onfilechange = [];
 		return writeFile(filePath, 'raz');
 	}, 20))(delay(function () {
-		a(String(ondirchange), 'change', "Dir: File created");
+		a(String(ondirchange), 'modify', "Dir: File created");
 		a(String(onfilechange), 'create', "File: File created");
 		ondirchange = [];
 		onfilechange = [];
@@ -49,24 +49,24 @@ module.exports = function (t, a, d) {
 		});
 	}, 20))(delay(function () {
 		a(String(ondirchange), '', "Dir: File changed");
-		a(String(onfilechange), 'change', "File: File changed");
+		a(String(onfilechange), 'modify', "File: File changed");
 		ondirchange = [];
 		onfilechange = [];
 		return rename(filePath, filePath + 'r');
 	}, 20))(delay(function () {
-		a(String(ondirchange), 'change', "Dir: File renamed");
+		a(String(ondirchange), 'modify', "Dir: File renamed");
 		a(String(onfilechange), 'remove', "File: File renamed");
 		ondirchange = [];
 		onfilechange = [];
 		return rename(filePath + 'r', filePath);
 	}, 20))(delay(function () {
-		a(String(ondirchange), 'change', "Dir: File renamed back");
+		a(String(ondirchange), 'modify', "Dir: File renamed back");
 		a(String(onfilechange), 'create', "File: File renamed back");
 		ondirchange = [];
 		onfilechange = [];
 		return unlink(filePath);
 	}, 20))(delay(function () {
-		a(String(ondirchange), 'change', "Dir: File removed");
+		a(String(ondirchange), 'modify', "Dir: File removed");
 		a(String(onfilechange), 'remove', "File: File removed");
 		ondirchange = [];
 		onfilechange = [];
@@ -84,13 +84,13 @@ module.exports = function (t, a, d) {
 		onfilechange = [];
 		return writeFile(filePath, 'raz');
 	}, 20))(delay(function () {
-		a(String(ondirchange), 'change', "Dir: File created #2");
+		a(String(ondirchange), 'modify', "Dir: File created #2");
 		a(String(onfilechange), 'create', "File: File created #2");
 		ondirchange = [];
 		onfilechange = [];
 		return unlink(filePath);
 	}, 20))(delay(function () {
-		a(String(ondirchange), 'change', "Dir: File removed #2");
+		a(String(ondirchange), 'modify', "Dir: File removed #2");
 		a(String(onfilechange), 'remove', "File: File removed #2");
 		ondirchange = [];
 		onfilechange = [];
