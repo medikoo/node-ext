@@ -1,11 +1,11 @@
 'use strict';
 
-var join      = require('path').join
-  , separator = require('../../lib/path/separator');
+var join = require('path').join
+  , sep  = require('../../lib/path/sep');
 
 module.exports = function (t, a) {
-	a(t('raz/dwa/'), join('raz/dwa') + separator, "With ending slash");
-	a(t('/raz/dwa'), join('/raz/dwa') + separator, "Without ending slash");
+	a(t('raz/dwa/'), join('raz/dwa') + sep, "With ending slash");
+	a(t('/raz/dwa'), join('/raz/dwa') + sep, "Without ending slash");
 	a(t(''), '', "Empty");
-	a(t('/'), separator, "Root");
+	a(t('/'), sep, "Root");
 };
