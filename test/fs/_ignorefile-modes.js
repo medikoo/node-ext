@@ -5,10 +5,10 @@ var isArray    = Array.isArray
   , isCallable = require('es5-ext/lib/Object/is-callable');
 
 module.exports = function (t, a) {
-	forEach(t, function (value, name, index) {
-		a.ok(value.filename, "#" + index + " Filename");
+	forEach(t, function (value, name) {
+		a.ok(value.filename, "#" + name + " Filename");
 		a((value.globalRules == null) || isArray(value.globalRules), true,
-			"#" + index + " Global rules");
-		a(isCallable(value.findRoot), true, "#" + index + " Find root");
+			"#" + name + " Global rules");
+		a(isCallable(value.findRoot), true, "#" + name + " Find root");
 	});
 };
