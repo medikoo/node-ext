@@ -35,18 +35,13 @@ module.exports = function (t, a, d) {
 		return t(twoPath, mode);
 	}, 20))(function (value) {
 		var map = {};
-		map[pgPath] = '';
-		map[onePath] = '';
-		map[twoPath] = '';
 		data = value;
 		a(data.root, pgPath, '#1 Root');
 		a.deep(omap(data.map, String), map, '#1 Data');
 		return writeFile(oneFile, 'foo\n!bar');
 	})(delay(function () {
 		var map = {};
-		map[pgPath] = '';
-		map[onePath] = '!bar,foo';
-		map[twoPath] = '';
+		map[onePath] = 'foo\n!bar';
 		a(invoked, true, "#2 invoked");
 		invoked = false;
 		a(data.root, pgPath, '#2 Root');
@@ -54,9 +49,8 @@ module.exports = function (t, a, d) {
 		return writeFile(twoFile, '!raz\ndwa\n');
 	}, 20))(delay(function () {
 		var map = {};
-		map[pgPath] = '';
-		map[onePath] = '!bar,foo';
-		map[twoPath] = 'dwa,!raz';
+		map[onePath] = 'foo\n!bar';
+		map[twoPath] = '!raz\ndwa\n';
 		a(invoked, true, "#3 invoked");
 		invoked = false;
 		a(data.root, pgPath, '#3 Root');
@@ -64,9 +58,9 @@ module.exports = function (t, a, d) {
 		return writeFile(rootFile, 'one\n\ntwo\n!three\n');
 	}, 20))(delay(function () {
 		var map = {};
-		map[pgPath] = '!three,two,one';
-		map[onePath] = '!bar,foo';
-		map[twoPath] = 'dwa,!raz';
+		map[pgPath] = 'one\n\ntwo\n!three\n';
+		map[onePath] = 'foo\n!bar';
+		map[twoPath] = '!raz\ndwa\n';
 		a(invoked, true, "#4 invoked");
 		invoked = false;
 		a(data.root, pgPath, '#4 Root');
@@ -74,7 +68,7 @@ module.exports = function (t, a, d) {
 		return mkdir(gitTwo);
 	}, 20))(delay(function () {
 		var map = {};
-		map[twoPath] = 'dwa,!raz';
+		map[twoPath] = '!raz\ndwa\n';
 		a(invoked, true, "#5 invoked");
 		invoked = false;
 		a(data.root, twoPath, '#5 Root');
@@ -82,9 +76,9 @@ module.exports = function (t, a, d) {
 		return rmdir(gitTwo);
 	}, 20))(delay(function () {
 		var map = {};
-		map[pgPath] = '!three,two,one';
-		map[onePath] = '!bar,foo';
-		map[twoPath] = 'dwa,!raz';
+		map[pgPath] = 'one\n\ntwo\n!three\n';
+		map[onePath] = 'foo\n!bar';
+		map[twoPath] = '!raz\ndwa\n';
 		a(invoked, true, "#6 invoked");
 		invoked = false;
 		a(data.root, pgPath, '#6 Root');
@@ -92,9 +86,8 @@ module.exports = function (t, a, d) {
 		return unlink(twoFile);
 	}, 20))(delay(function () {
 		var map = {};
-		map[pgPath] = '!three,two,one';
-		map[onePath] = '!bar,foo';
-		map[twoPath] = '';
+		map[pgPath] = 'one\n\ntwo\n!three\n';
+		map[onePath] = 'foo\n!bar';
 		a(invoked, true, "#7 invoked");
 		invoked = false;
 		a(data.root, pgPath, '#7 Root');
@@ -102,9 +95,7 @@ module.exports = function (t, a, d) {
 		return unlink(oneFile);
 	}, 20))(delay(function () {
 		var map = {};
-		map[pgPath] = '!three,two,one';
-		map[onePath] = '';
-		map[twoPath] = '';
+		map[pgPath] = 'one\n\ntwo\n!three\n';
 		a(invoked, true, "#8 invoked");
 		invoked = false;
 		a(data.root, pgPath, '#8 Root');
@@ -112,9 +103,6 @@ module.exports = function (t, a, d) {
 		return unlink(rootFile);
 	}, 20))(delay(function () {
 		var map = {};
-		map[pgPath] = '';
-		map[onePath] = '';
-		map[twoPath] = '';
 		a(invoked, true, "#9 invoked");
 		invoked = false;
 		a(data.root, pgPath, '#9 Root');
