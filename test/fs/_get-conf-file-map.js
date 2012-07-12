@@ -33,13 +33,13 @@ module.exports = function (t, a, d) {
 			invoked = arg;
 		});
 		return t(twoPath, mode);
-	}, DELAY))(function (value) {
+	}, DELAY))(delay(function (value) {
 		var map = {};
 		data = value;
 		a(data.root, pgPath, '#1 Root');
 		a.deep(omap(data.map, String), map, '#1 Data');
 		return writeFile(oneFile, 'foo\n!bar');
-	})(delay(function () {
+	}, DELAY))(delay(function () {
 		var map = {};
 		map[onePath] = 'foo\n!bar';
 		a(invoked, data, "#2 invoked");
