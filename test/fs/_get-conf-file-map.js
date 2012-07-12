@@ -16,6 +16,7 @@ var fs        = require('fs')
 
 module.exports = function (t, a, d) {
 	var data, invoked = false, listener
+	  , DELAY = 100
 	  , gitRoot = resolve(pgPath, '.git')
 	  , rootFile = resolve(pgPath, '.gitignore')
 	  , onePath = resolve(pgPath, 'one')
@@ -29,11 +30,10 @@ module.exports = function (t, a, d) {
 	}))(delay(function () {
 		t(twoPath, mode).on('change', listener = function (arg) {
 			a(invoked, false, "Invoked once");
-			a(arg, data, "Event argument");
-			invoked = true;
+			invoked = arg;
 		});
 		return t(twoPath, mode);
-	}, 20))(function (value) {
+	}, DELAY))(function (value) {
 		var map = {};
 		data = value;
 		a(data.root, pgPath, '#1 Root');
@@ -42,68 +42,68 @@ module.exports = function (t, a, d) {
 	})(delay(function () {
 		var map = {};
 		map[onePath] = 'foo\n!bar';
-		a(invoked, true, "#2 invoked");
+		a(invoked, data, "#2 invoked");
 		invoked = false;
 		a(data.root, pgPath, '#2 Root');
 		a.deep(omap(data.map, String), map, '#2 Data');
 		return writeFile(twoFile, '!raz\ndwa\n');
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		var map = {};
 		map[onePath] = 'foo\n!bar';
 		map[twoPath] = '!raz\ndwa\n';
-		a(invoked, true, "#3 invoked");
+		a(invoked, data, "#3 invoked");
 		invoked = false;
 		a(data.root, pgPath, '#3 Root');
 		a.deep(omap(data.map, String), map, '#3 Data');
 		return writeFile(rootFile, 'one\n\ntwo\n!three\n');
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		var map = {};
 		map[pgPath] = 'one\n\ntwo\n!three\n';
 		map[onePath] = 'foo\n!bar';
 		map[twoPath] = '!raz\ndwa\n';
-		a(invoked, true, "#4 invoked");
+		a(invoked, data, "#4 invoked");
 		invoked = false;
 		a(data.root, pgPath, '#4 Root');
 		a.deep(omap(data.map, String), map, '#4 Data');
 		return mkdir(gitTwo);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		var map = {};
 		map[twoPath] = '!raz\ndwa\n';
-		a(invoked, true, "#5 invoked");
+		a(invoked, data, "#5 invoked");
 		invoked = false;
 		a(data.root, twoPath, '#5 Root');
 		a.deep(omap(data.map, String), map, '#5 Data');
 		return rmdir(gitTwo);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		var map = {};
 		map[pgPath] = 'one\n\ntwo\n!three\n';
 		map[onePath] = 'foo\n!bar';
 		map[twoPath] = '!raz\ndwa\n';
-		a(invoked, true, "#6 invoked");
+		a(invoked, data, "#6 invoked");
 		invoked = false;
 		a(data.root, pgPath, '#6 Root');
 		a.deep(omap(data.map, String), map, '#6 Data');
 		return unlink(twoFile);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		var map = {};
 		map[pgPath] = 'one\n\ntwo\n!three\n';
 		map[onePath] = 'foo\n!bar';
-		a(invoked, true, "#7 invoked");
+		a(invoked, data, "#7 invoked");
 		invoked = false;
 		a(data.root, pgPath, '#7 Root');
 		a.deep(omap(data.map, String), map, '#7 Data');
 		return unlink(oneFile);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		var map = {};
 		map[pgPath] = 'one\n\ntwo\n!three\n';
-		a(invoked, true, "#8 invoked");
+		a(invoked, data, "#8 invoked");
 		invoked = false;
 		a(data.root, pgPath, '#8 Root');
 		a.deep(omap(data.map, String), map, '#8 Data');
 		return unlink(rootFile);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		var map = {};
-		a(invoked, true, "#9 invoked");
+		a(invoked, data, "#9 invoked");
 		invoked = false;
 		a(data.root, pgPath, '#9 Root');
 		a.deep(omap(data.map, String), map, '#9 Data');
@@ -111,5 +111,5 @@ module.exports = function (t, a, d) {
 		return deferred(rmdir(gitRoot), rmdir(twoPath)(function () {
 			return rmdir(onePath);
 		}));
-	}, 20)).end(d);
+	}, DELAY)).end(d);
 };
