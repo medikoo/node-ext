@@ -33,6 +33,7 @@ module.exports = function (t, a, d) {
 	}, DELAY)()(delay(function () {
 		t(dirPath).on('change', function (e) { ++ondirchange; });
 		t(dirPath).on('end', function (e) { ++ondirend; });
+	}, DELAY))(delay(function () {
 		return writeFile(filePath, 'raz');
 	}, DELAY))(delay(function () {
 		a(ondirchange, 1, "Dir change: File created");
@@ -40,7 +41,7 @@ module.exports = function (t, a, d) {
 		ondirchange = ondirend = 0;
 		t(filePath).on('change', function () { ++onfilechange });
 		t(filePath).on('end', function () { ++onfileend });
-
+	}, DELAY))(delay(function () {
 		return open(filePath, 'a')(function (fd) {
 			return write(fd, new Buffer('dwatrzy'), 0, 3, null)(function () {
 				return close(fd);
