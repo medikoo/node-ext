@@ -18,6 +18,7 @@ var fs        = require('fs')
 
 module.exports = function (t, a, d) {
 	var ondirchange = 0, onfilechange = 0, ondirend = 0, onfileend = 0, tmpPath
+	  , DELAY = 100
 	  , tmpFilePath, alt
 	  , dirPath = resolve(pgPath, 'tmpdir')
 	  , filePath = resolve(dirPath, 'tmpfile')
@@ -29,11 +30,11 @@ module.exports = function (t, a, d) {
 
 	delay(function () {
 		return mkdir(dirPath);
-	}, 20)()(delay(function () {
+	}, DELAY)()(delay(function () {
 		t(dirPath).on('change', function (e) { ++ondirchange; });
 		t(dirPath).on('end', function (e) { ++ondirend; });
 		return writeFile(filePath, 'raz');
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(ondirchange, 1, "Dir change: File created");
 		a(ondirend, 0, "Dir end: File created");
 		ondirchange = ondirend = 0;
@@ -45,38 +46,38 @@ module.exports = function (t, a, d) {
 				return close(fd);
 			});
 		});
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(ondirchange, 0, "Dir change: File changed");
 		a(ondirend, 0, "Dir end: File changed");
 		a(onfilechange, 1, "File change: File created");
 		a(onfileend, 0, "File end: File created");
 		ondirchange = ondirend = onfilechange = onfileend = 0;
 		return rename(filePath, filePath + 'r');
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(ondirchange, 1, "Dir change: File renamed");
 		a(ondirend, 0, "Dir end: File renamed");
 		a(onfilechange, 0, "File change: File renamed");
 		a(onfileend, 1, "File end: File renamed");
 		ondirchange = ondirend = onfilechange = onfileend = 0;
 		return rename(filePath + 'r', filePath);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(ondirchange, 1, "Dir change: File renamed back");
 		a(ondirend, 0, "Dir end: File renamed back");
 		a(onfilechange, 0, "File change: File renamed back");
 		a(onfileend, 0, "File end: File renamed back");
 		ondirchange = ondirend = onfilechange = onfileend = 0;
 		return unlink(filePath);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(ondirchange, 1, "Dir change: File removed");
 		a(ondirend, 0, "Dir end: File removed");
 		a(onfilechange, 0, "File change: File removed");
 		a(onfileend, 0, "File end: File removed");
 		ondirchange = ondirend = onfilechange = onfileend = 0;
 		return rmdir(dirPath);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(ondirchange, 0, "Dir change: Dir removed");
 		a(ondirend, 1, "Dir end: Dir removed");
 		a(onfilechange, 0, "File change: Dir removed");
 		a(onfileend, 0, "File end: Dir removed");
-	}, 20)).end(d);
+	}, DELAY)).end(d);
 };
