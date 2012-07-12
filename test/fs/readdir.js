@@ -23,7 +23,8 @@ var push      = Array.prototype.push
   , pgPath = resolve(__dirname, '../__playground/readdir');
 
 module.exports = function (t) {
-	var pathsAll, paths2, paths0, filesAll, files2, files0, replaceSep;
+	var pathsAll, paths2, paths0, filesAll, files2, files0, replaceSep
+	  , DELAY = 100;
 	replaceSep = function (path) {
 		return path.replace(/\//g, sep);
 	};
@@ -80,14 +81,14 @@ module.exports = function (t) {
 						a.deep(data, npaths.sort(), "Created: data");
 					});
 					return rmdir(testPath);
-				}, 20))(delay(function () {
+				}, DELAY))(delay(function () {
 					a.deep(invoked.old, [testName], "Deleted: old");
 					a.deep(invoked.new, [], "Deleted: new");
 					invoked = false;
 					reader(function (data) {
 						a.deep(data, paths, "Deleted: data");
 					});
-				}, 20)).end(d);
+				}, DELAY)).end(d);
 			},
 			"2": function (a, d) {
 				var reader = t(pgPath, { depth: 2 })
@@ -112,14 +113,14 @@ module.exports = function (t) {
 						a.deep(data, npaths.sort(), "Created: data");
 					});
 					return rmdir(testPath);
-				}, 20))(delay(function () {
+				}, DELAY))(delay(function () {
 					a.deep(invoked.old, [testName], "Deleted: old");
 					a.deep(invoked.new, [], "Deleted: new");
 					invoked = false;
 					reader(function (data) {
 						a.deep(data, paths, "Deleted: data");
 					});
-				}, 20)).end(d);
+				}, DELAY)).end(d);
 			},
 			"∞": function (a, d) {
 				var reader = t(pgPath, { depth: Infinity })
@@ -144,14 +145,14 @@ module.exports = function (t) {
 						a.deep(data, npaths.sort(), "Created: data");
 					});
 					return unlink(testPath);
-				}, 20))(delay(function () {
+				}, DELAY))(delay(function () {
 					a.deep(invoked.old, [testName], "Deleted: old");
 					a.deep(invoked.new, [], "Deleted: new");
 					invoked = false;
 					reader(function (data) {
 						a.deep(data, paths, "Deleted: data");
 					});
-				}, 20)).end(d);
+				}, DELAY)).end(d);
 			}
 		},
 		"Type": function (a, d) {
@@ -174,14 +175,14 @@ module.exports = function (t) {
 					a.deep(data, paths, "Created other type: data");
 				});
 				return rmdir(testPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				a(invoked, false, "Deleted other type: event");
 				invoked = false;
 				reader(function (data) {
 					a.deep(data, paths, "Deleted other type: data");
 				});
 				return writeFile(testPath, 'foo');
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				a.deep(invoked.old, [], "Created: old");
 				a.deep(invoked.new, [testName], "Created: new");
 				invoked = false;
@@ -191,14 +192,14 @@ module.exports = function (t) {
 					a.deep(data, npaths.sort(), "Created: data");
 				});
 				return unlink(testPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				a.deep(invoked.old, [testName], "Deleted: old");
 				a.deep(invoked.new, [], "Deleted: new");
 				invoked = false;
 				reader(function (data) {
 					a.deep(data, paths, "Deleted: data");
 				});
-			}, 20)).end(d);
+			}, DELAY)).end(d);
 		},
 		"Types": function (a, d) {
 			var reader = t(pgPath, { depth: 2,
@@ -211,10 +212,10 @@ module.exports = function (t) {
 			reader.on('change', function (data) {
 				invoked = data;
 			});
-			reader(function (data) {
+			reader(delay(function (data) {
 				a.deep(data, paths);
 				return mkdir(testPath);
-			})(delay(function () {
+			}, DELAY))(delay(function () {
 				a.deep(invoked.old, [], "Created: old");
 				a.deep(invoked.new, [testName], "Created: new");
 				invoked = false;
@@ -224,14 +225,14 @@ module.exports = function (t) {
 					a.deep(data, npaths.sort(), "Created: data");
 				});
 				return rmdir(testPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				a.deep(invoked.old, [testName], "Deleted: old");
 				a.deep(invoked.new, [], "Deleted: new");
 				invoked = false;
 				reader(function (data) {
 					a.deep(data, paths, "Deleted: data");
 				});
-			}, 20)).end(d);
+			}, DELAY)).end(d);
 		},
 		"Pattern": function (a, d) {
 			var pattern = /one$/, reader = t(pgPath, { depth: 2, pattern: pattern })
@@ -257,14 +258,14 @@ module.exports = function (t) {
 					a.deep(data, paths, "Created other type: data");
 				});
 				return rmdir(otherPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				a(invoked, false, "Deleted other type: event");
 				invoked = false;
 				reader(function (data) {
 					a.deep(data, paths, "Deleted other type: data");
 				});
 				return mkdir(testPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				a.deep(invoked.old, [], "Created: old");
 				a.deep(invoked.new, [testName], "Created: new");
 				invoked = false;
@@ -274,14 +275,14 @@ module.exports = function (t) {
 					a.deep(data, npaths.sort(), "Created: data");
 				});
 				return rmdir(testPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				a.deep(invoked.old, [testName], "Deleted: old");
 				a.deep(invoked.new, [], "Deleted: new");
 				invoked = false;
 				reader(function (data) {
 					a.deep(data, paths, "Deleted: data");
 				});
-			}, 20)).end(d);
+			}, DELAY)).end(d);
 		},
 		"Pattern & Type": function (a, d) {
 			var pattern = /one$/, reader = t(pgPath,
@@ -296,24 +297,24 @@ module.exports = function (t) {
 			reader.on('change', function (data) {
 				invoked = data;
 			});
-			reader(function (data) {
+			reader(delay(function (data) {
 				a.deep(data, paths);
 				return mkdir(testPath);
-			})(delay(function () {
+			}, DELAY))(delay(function () {
 				a(invoked, false, "Created other type: event");
 				invoked = false;
 				reader(function (data) {
 					a.deep(data, paths, "Created other type: data");
 				});
 				return rmdir(testPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				a(invoked, false, "Deleted other type: event");
 				invoked = false;
 				reader(function (data) {
 					a.deep(data, paths, "Deleted other type: data");
 				});
 				return writeFile(testPath, 'foo');
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				a.deep(invoked.old, [], "Created: old");
 				a.deep(invoked.new, [testName], "Created: new");
 				invoked = false;
@@ -323,14 +324,14 @@ module.exports = function (t) {
 					a.deep(data, npaths.sort(), "Created: data");
 				});
 				return unlink(testPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				a.deep(invoked.old, [testName], "Deleted: old");
 				a.deep(invoked.new, [], "Deleted: new");
 				invoked = false;
 				reader(function (data) {
 					a.deep(data, paths, "Deleted: data");
 				});
-			}, 20)).end(d);
+			}, DELAY)).end(d);
 		},
 		"Ignored": function (a, d) {
 			var gitPath = resolve(pgPath, '.git')
@@ -366,7 +367,7 @@ module.exports = function (t) {
 					invoked.push(data);
 				});
 				return reader;
-			}, 20))(function (data) {
+			}, DELAY))(function (data) {
 				a.deep(data, paths);
 				return mkdir(otherPath);
 			})(delay(function () {
@@ -376,14 +377,14 @@ module.exports = function (t) {
 					a.deep(data, paths, "Created other type: data");
 				});
 				return rmdir(otherPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
 				a(invoked, false, "Deleted other type: event");
 				reader(function (data) {
 					a.deep(data, paths, "Deleted other type: data");
 				});
 				return mkdir(testPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
 				a.deep(invoked.old, [], "Created: old");
 				a.deep(invoked.new, [testName], "Created: new");
@@ -393,7 +394,7 @@ module.exports = function (t) {
 					a.deep(data, paths.sort(), "Created: data");
 				});
 				return rmdir(testPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
 				a.deep(invoked.old, [testName], "Deleted: old");
 				a.deep(invoked.new, [], "Deleted: new");
@@ -401,7 +402,7 @@ module.exports = function (t) {
 					a.deep(data, paths, "Deleted: data");
 				});
 				return writeFile(ignoreFile, 'dtwo\none');
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var npaths = paths.filter(function (path) {
 					return (path !== 'one') && (path.indexOf(sep + 'one') === -1);
 				}).sort();
@@ -413,7 +414,7 @@ module.exports = function (t) {
 					a.deep(data, npaths, "Ignored: data");
 				});
 				return deferred(rmdir(gitPath), unlink(ignoreFile));
-			}, 20)).end(d);
+			}, DELAY)).end(d);
 		},
 		"Ignored & Type": function (a, d) {
 			var gitPath = resolve(pgPath, '.git')
@@ -451,25 +452,25 @@ module.exports = function (t) {
 						invoked.push(data);
 					});
 					return reader;
-				}, 20
-			))(function (data) {
+				}, DELAY
+			))(delay(function (data) {
 				a.deep(data, paths);
 				return writeFile(otherPath, 'foo');
-			})(delay(function () {
+			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
 				a(invoked, false, "Created other type: event");
 				reader(function (data) {
 					a.deep(data, paths, "Created other type: data");
 				});
 				return unlink(otherPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
 				a(invoked, false, "Deleted other type: event");
 				reader(function (data) {
 					a.deep(data, paths, "Deleted other type: data");
 				});
 				return writeFile(testPath, 'foo');
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
 				a.deep(invoked.old, [], "Created: old");
 				a.deep(invoked.new, [testName], "Created: new");
@@ -479,7 +480,7 @@ module.exports = function (t) {
 					a.deep(data, paths.sort(), "Created: data");
 				});
 				return unlink(testPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
 				a.deep(invoked.old, [testName], "Deleted: old");
 				a.deep(invoked.new, [], "Deleted: new");
@@ -487,19 +488,19 @@ module.exports = function (t) {
 					a.deep(data, paths, "Deleted: data");
 				});
 				return writeFile(ignoreFile, 'dtwo\none');
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var npaths = paths.filter(function (path) {
 					return (path !== 'one') && (path.indexOf(sep + 'one') === -1);
 				}).sort();
 				var invoked = mergeInvoked();
-				a.deep(invoked.old.sort(), diff.call(paths, npaths).sort(),
+				a.deep(invoked.old && invoked.old.sort(), diff.call(paths, npaths).sort(),
 					"Ignored: old");
 				a.deep(invoked.new, [], "Ignored: new");
 				reader(function (data) {
 					a.deep(data, npaths, "Ignored: data");
 				});
 				return deferred(rmdir(gitPath), unlink(ignoreFile));
-			}, 20)).end(d);
+			}, DELAY)).end(d);
 		},
 		"Ignored & Pattern": function (a, d) {
 			var pattern = /done/, gitPath = resolve(pgPath, '.git')
@@ -533,24 +534,24 @@ module.exports = function (t) {
 					invoked.push(data);
 				});
 				return reader;
-			}, 20))(function (data) {
+			}, DELAY))(delay(function (data) {
 				a.deep(data, paths);
 				return mkdir(otherPath);
-			})(delay(function () {
+			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
 				a(invoked, false, "Created other type: event");
 				reader(function (data) {
 					a.deep(data, paths, "Created other type: data");
 				});
 				return rmdir(otherPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
 				a(invoked, false, "Deleted other type: event");
 				reader(function (data) {
 					a.deep(data, paths, "Deleted other type: data");
 				});
 				return mkdir(testPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
 				a.deep(invoked.old, [], "Created: old");
 				a.deep(invoked.new, [testName], "Created: new");
@@ -560,7 +561,7 @@ module.exports = function (t) {
 					a.deep(data, paths.sort(), "Created: data");
 				});
 				return rmdir(testPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
 				a.deep(invoked.old, [testName], "Deleted: old");
 				a.deep(invoked.new, [], "Deleted: new");
@@ -568,19 +569,19 @@ module.exports = function (t) {
 					a.deep(data, paths, "Deleted: data");
 				});
 				return writeFile(ignoreFile, 'dtwo\none');
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var npaths = paths.filter(function (path) {
 					return (path !== 'one') && (path.indexOf(sep + 'one') === -1);
 				}).sort();
 				var invoked = mergeInvoked();
-				a.deep(invoked.old.sort(), diff.call(paths, npaths).sort(),
-					"Ignored: old");
+				a.deep(invoked && invoked.old && invoked.old.sort(),
+					diff.call(paths, npaths).sort(), "Ignored: old");
 				a.deep(invoked.new, [], "Ignored: new");
 				reader(function (data) {
 					a.deep(data, npaths, "Ignored: data");
 				});
 				return deferred(rmdir(gitPath), unlink(ignoreFile));
-			}, 20)).end(d);
+			}, DELAY)).end(d);
 		},
 		"Ignored & Pattern & Type": function (a, d) {
 			var pattern = /done/, gitPath = resolve(pgPath, '.git')
@@ -616,25 +617,25 @@ module.exports = function (t) {
 						invoked.push(data);
 					});
 					return reader;
-				}, 20
-			))(function (data) {
+				}, DELAY
+			))(delay(function (data) {
 				a.deep(data, paths);
 				return writeFile(otherPath, 'foo');
-			})(delay(function () {
+			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
 				a(invoked, false, "Created other type: event");
 				reader(function (data) {
 					a.deep(data, paths, "Created other type: data");
 				});
 				return unlink(otherPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
 				a(invoked, false, "Deleted other type: event");
 				reader(function (data) {
 					a.deep(data, paths, "Deleted other type: data");
 				});
 				return writeFile(testPath, 'foo');
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
 				a.deep(invoked.old, [], "Created: old");
 				a.deep(invoked.new, [testName], "Created: new");
@@ -644,7 +645,7 @@ module.exports = function (t) {
 					a.deep(data, paths.sort(), "Created: data");
 				});
 				return unlink(testPath);
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
 				a.deep(invoked.old, [testName], "Deleted: old");
 				a.deep(invoked.new, [], "Deleted: new");
@@ -652,19 +653,19 @@ module.exports = function (t) {
 					a.deep(data, paths, "Deleted: data");
 				});
 				return writeFile(ignoreFile, 'dtwo\none');
-			}, 20))(delay(function () {
+			}, DELAY))(delay(function () {
 				var npaths = paths.filter(function (path) {
 					return (path !== 'one') && (path.indexOf(sep + 'one') === -1);
 				}).sort();
 				var invoked = mergeInvoked();
-				a.deep(invoked.old.sort(), diff.call(paths, npaths).sort(),
+				a.deep(invoked && invoked.old && invoked.old.sort(), diff.call(paths, npaths).sort(),
 					"Ignored: old");
 				a.deep(invoked.new, [], "Ignored: new");
 				reader(function (data) {
 					a.deep(data, npaths, "Ignored: data");
 				});
 				return deferred(rmdir(gitPath), unlink(ignoreFile));
-			}, 20)).end(d);
+			}, DELAY)).end(d);
 		}
 	};
 };
