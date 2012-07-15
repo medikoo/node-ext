@@ -102,8 +102,9 @@ module.exports = function (t) {
 				});
 				reader(function (data) {
 					a.deep(data, paths);
-					return mkdir(testPath);
 				})(delay(function () {
+					return mkdir(testPath);
+				}, DELAY))(delay(function () {
 					a.deep(invoked.old, [], "Created: old");
 					a.deep(invoked.new, [testName], "Created: new");
 					invoked = false;
@@ -134,8 +135,9 @@ module.exports = function (t) {
 				});
 				reader(function (data) {
 					a.deep(data, paths);
-					return writeFile(testPath, 'foo');
 				})(delay(function () {
+					return writeFile(testPath, 'foo');
+				}, DELAY))(delay(function () {
 					a.deep(invoked.old, [], "Created: old");
 					a.deep(invoked.new, [testName], "Created: new");
 					invoked = false;
@@ -407,7 +409,8 @@ module.exports = function (t) {
 					return (path !== 'one') && (path.indexOf(sep + 'one') === -1);
 				}).sort();
 				var invoked = mergeInvoked();
-				a.deep(invoked.old.sort(), diff.call(paths, npaths).sort(),
+				a.deep(invoked && invoked.old && invoked.old.sort(),
+					diff.call(paths, npaths).sort(),
 					"Ignored: old");
 				a.deep(invoked.new, [], "Ignored: new");
 				reader(function (data) {
@@ -487,6 +490,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data, paths, "Deleted: data");
 				});
+			}, DELAY))(delay(function () {
 				return writeFile(ignoreFile, 'dtwo\none');
 			}, DELAY))(delay(function () {
 				var npaths = paths.filter(function (path) {
@@ -568,6 +572,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data, paths, "Deleted: data");
 				});
+			}, DELAY))(delay(function () {
 				return writeFile(ignoreFile, 'dtwo\none');
 			}, DELAY))(delay(function () {
 				var npaths = paths.filter(function (path) {
@@ -652,6 +657,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data, paths, "Deleted: data");
 				});
+			}, DELAY))(delay(function () {
 				return writeFile(ignoreFile, 'dtwo\none');
 			}, DELAY))(delay(function () {
 				var npaths = paths.filter(function (path) {
