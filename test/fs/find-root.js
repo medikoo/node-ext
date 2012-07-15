@@ -18,6 +18,7 @@ module.exports = function (t, a, d) {
 	  , twoPath = resolve(onePath, 'two')
 	  , gitTwoPath = resolve(twoPath, '.git')
 	  , filePath = resolve(twoPath, 'file.xxx')
+	  , DELAY = 100
 
 	  , watcher, events = [];
 
@@ -44,15 +45,15 @@ module.exports = function (t, a, d) {
 
 		// Create /one/two
 		return mkdir(twoPath);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 
 		// Create /one/two/.git
 		return mkdir(gitTwoPath);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(String(events), twoPath, "#2: Event");
 		events = [];
 		return t(isGitRepo, filePath);
-	}, 20))(function (path) {
+	}, DELAY))(function (path) {
 		a(path, twoPath, "#2");
 
 		// Remove /one/.git
@@ -61,11 +62,11 @@ module.exports = function (t, a, d) {
 
 		// Remove /one/two/.git
 		return rmdir(gitTwoPath);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(String(events), rootPath, "#3: Event");
 		events = [];
 		return t(isGitRepo, filePath);
-	}, 20))(function (path) {
+	}, DELAY))(function (path) {
 		a(path, rootPath, "#3");
 
 		// Create /one/two/.git
@@ -74,7 +75,7 @@ module.exports = function (t, a, d) {
 		a(String(events), twoPath, "#4: Event");
 		events = [];
 		return t(isGitRepo, filePath);
-	}, 20))(function (path) {
+	}, DELAY))(function (path) {
 		a(path, twoPath, "#4");
 
 		// Remove /one/two/.git
@@ -91,7 +92,7 @@ module.exports = function (t, a, d) {
 		a(String(events), rootPath, "#5: Event");
 		events = [];
 		return t(isGitRepo, filePath);
-	}, 20))(function (path) {
+	}, DELAY))(function (path) {
 		a(path, rootPath, "#5");
 
 		return rmdir(gitRoot);
