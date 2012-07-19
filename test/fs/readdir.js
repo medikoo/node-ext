@@ -59,7 +59,7 @@ module.exports = function (t) {
 	return {
 		"": {
 			"0": function (a, d) {
-				var reader = t(pgPath)
+				var reader = t(pgPath, { watch: true })
 				  , testName = 'foo'
 				  , testPath = resolve(pgPath, testName)
 				  , paths = paths0
@@ -91,7 +91,7 @@ module.exports = function (t) {
 				}, DELAY)).end(d);
 			},
 			"2": function (a, d) {
-				var reader = t(pgPath, { depth: 2 })
+				var reader = t(pgPath, { depth: 2, watch: true })
 				  , testName = replaceSep('dtwo/foo')
 				  , testPath = resolve(pgPath, testName)
 				  , paths = paths2
@@ -124,7 +124,7 @@ module.exports = function (t) {
 				}, DELAY)).end(d);
 			},
 			"∞": function (a, d) {
-				var reader = t(pgPath, { depth: Infinity })
+				var reader = t(pgPath, { depth: Infinity, watch: true })
 				  , testName = replaceSep('done/done/dthree/test')
 				  , testPath = resolve(pgPath, testName)
 				  , paths = pathsAll
@@ -158,7 +158,7 @@ module.exports = function (t) {
 			}
 		},
 		"Type": function (a, d) {
-			var reader = t(pgPath, { depth: 2, type: { file: true } })
+			var reader = t(pgPath, { depth: 2, type: { file: true }, watch: true })
 			  , testName = replaceSep('dtwo/test')
 			  , testPath = resolve(pgPath, testName)
 			  , paths = files2
@@ -205,7 +205,7 @@ module.exports = function (t) {
 		},
 		"Types": function (a, d) {
 			var reader = t(pgPath, { depth: 2,
-				type: { file: true, directory: true } })
+				type: { file: true, directory: true }, watch: true })
 			  , testName = replaceSep('dtwo/foo')
 			  , testPath = resolve(pgPath, testName)
 			  , paths = paths2
@@ -237,7 +237,8 @@ module.exports = function (t) {
 			}, DELAY)).end(d);
 		},
 		"Pattern": function (a, d) {
-			var pattern = /one$/, reader = t(pgPath, { depth: 2, pattern: pattern })
+			var pattern = /one$/
+			  , reader = t(pgPath, { depth: 2, pattern: pattern, watch: true })
 			  , otherName = replaceSep('dtwo/test')
 			  , otherPath = resolve(pgPath, otherName)
 			  , testName = replaceSep('dtwo/fooone')
@@ -288,7 +289,7 @@ module.exports = function (t) {
 		},
 		"Pattern & Type": function (a, d) {
 			var pattern = /one$/, reader = t(pgPath,
-				{ depth: 2, type: { file: true }, pattern: pattern })
+				{ depth: 2, type: { file: true }, pattern: pattern, watch: true })
 			  , testName = replaceSep('dtwo/fooone')
 			  , testPath = resolve(pgPath, testName)
 			  , paths = files2.filter(function (path) {
@@ -364,7 +365,7 @@ module.exports = function (t) {
 			paths.push('.gitignore');
 			paths.sort();
 			deferred(mkdir(gitPath), writeFile(ignoreFile, 'dtwo'))(delay(function () {
-				reader = t(pgPath, { depth: 2, ignoreRules: 'git' });
+				reader = t(pgPath, { depth: 2, ignoreRules: 'git', watch: true });
 				reader.on('change', function (data) {
 					invoked.push(data);
 				});
@@ -450,7 +451,7 @@ module.exports = function (t) {
 			deferred(mkdir(gitPath), writeFile(ignoreFile, 'dtwo'))(delay(
 				function () {
 					reader = t(pgPath, { depth: 2, type: { file: true },
-						ignoreRules: 'git' });
+						ignoreRules: 'git', watch: true });
 					reader.on('change', function (data) {
 						invoked.push(data);
 					});
@@ -497,8 +498,8 @@ module.exports = function (t) {
 					return (path !== 'one') && (path.indexOf(sep + 'one') === -1);
 				}).sort();
 				var invoked = mergeInvoked();
-				a.deep(invoked.old && invoked.old.sort(), diff.call(paths, npaths).sort(),
-					"Ignored: old");
+				a.deep(invoked.old && invoked.old.sort(),
+					diff.call(paths, npaths).sort(), "Ignored: old");
 				a.deep(invoked.new, [], "Ignored: new");
 				reader(function (data) {
 					a.deep(data, npaths, "Ignored: data");
@@ -532,13 +533,16 @@ module.exports = function (t) {
 				return result;
 			};
 
-			deferred(mkdir(gitPath), writeFile(ignoreFile, 'dtwo'))(delay(function () {
-				reader = t(pgPath, { depth: 2, pattern: pattern, ignoreRules: 'git' });
-				reader.on('change', function (data) {
-					invoked.push(data);
-				});
-				return reader;
-			}, DELAY))(delay(function (data) {
+			deferred(mkdir(gitPath),writeFile(ignoreFile, 'dtwo'))(delay(
+				function () {
+					reader = t(pgPath, { depth: 2, pattern: pattern,
+						ignoreRules: 'git', watch: true });
+					reader.on('change', function (data) {
+						invoked.push(data);
+					});
+					return reader;
+				}, DELAY
+			))(delay(function (data) {
 				a.deep(data, paths);
 				return mkdir(otherPath);
 			}, DELAY))(delay(function () {
@@ -617,7 +621,7 @@ module.exports = function (t) {
 			deferred(mkdir(gitPath), writeFile(ignoreFile, 'dtwo'))(delay(
 				function () {
 					reader = t(pgPath, { depth: 2, type: { file: true }, pattern: pattern,
-						ignoreRules: 'git' });
+						ignoreRules: 'git', watch: true });
 					reader.on('change', function (data) {
 						invoked.push(data);
 					});
@@ -664,8 +668,8 @@ module.exports = function (t) {
 					return (path !== 'one') && (path.indexOf(sep + 'one') === -1);
 				}).sort();
 				var invoked = mergeInvoked();
-				a.deep(invoked && invoked.old && invoked.old.sort(), diff.call(paths, npaths).sort(),
-					"Ignored: old");
+				a.deep(invoked && invoked.old && invoked.old.sort(),
+					diff.call(paths, npaths).sort(), "Ignored: old");
 				a.deep(invoked.new, [], "Ignored: new");
 				reader(function (data) {
 					a.deep(data, npaths, "Ignored: data");
