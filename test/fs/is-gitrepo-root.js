@@ -18,7 +18,8 @@ module.exports = function (t, a, d) {
 	  , gitTwoPath = resolve(twoPath, '.git')
 	  , filePath = resolve(twoPath, 'file.xxx')
 
-	  , watcher, rootEvents = [], oneEvents = [], twoEvents = [];
+	  , watcher, rootEvents = [], oneEvents = [], twoEvents = []
+	  , w1, w2, w3;
 
 	// Create /.git
 	mkdir(gitRoot)(function () {
@@ -30,16 +31,19 @@ module.exports = function (t, a, d) {
 		// Create /one/.git
 		return mkdir(gitOnePath);
 	})(function () {
-		t(rootPath).on('change', function (value) {
+		w1 = t(rootPath, { watch: true });
+		w1.on('change', function (value) {
 			rootEvents.push(value);
 		});
-		t(onePath).on('change', function (value) {
+		w2 = t(onePath, { watch: true });
+		w2.on('change', function (value) {
 			oneEvents.push(value);
 		});
-		t(twoPath).on('change', function (value) {
+		w3 = t(twoPath, { watch: true });
+		w3.on('change', function (value) {
 			twoEvents.push(value);
 		});
-		return deferred(t(rootPath), t(onePath), t(twoPath));
+		return deferred(w1, w2, w3);
 	})(delay(function (data) {
 		a.deep(data, [true, true, false], "#1");
 		a(String(rootEvents), '', "#1: Root Event");
