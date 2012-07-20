@@ -28,6 +28,8 @@ module.exports = function (t, a, d) {
 	  , twoOtherFile = resolve(twoPath, '.ignore')
 	  , twoFooPath = resolve(twoPath, 'foo')
 
+	  , watcher
+
 	modes.test = {
 		filename: '.ignore',
 		globalRules: ['.ignore'],
@@ -43,7 +45,8 @@ module.exports = function (t, a, d) {
 		t('git', resolve(gitRoot, 'foo/bar'))(function (value) {
 			a(value, true, "Ignore gitrepo file");
 		}).end();
-		t('git', twoFooPath).on('change', listener = function (arg) {
+		watcher = t('git', twoFooPath, { watch: true });
+		watcher.on('change', listener = function (arg) {
 			a(invoked, null, "Invoked once");
 			invoked = arg;
 		});
@@ -122,9 +125,11 @@ module.exports = function (t, a, d) {
 
 		return unlink(rootFile);
 	}, DELAY))(delay(function () {
-		t('git', twoFooPath).off('change', listener);
+		watcher.off('change', listener);
+		invoked = null;
 
-		t(['git', 'test'], twoFooPath).on('change', listener = function (arg) {
+		watcher = t(['git', 'test'], twoFooPath, { watch: true });
+		watcher.on('change', listener = function (arg) {
 			a(invoked, null, "Invoked once");
 			invoked = arg;
 		});
@@ -187,7 +192,7 @@ module.exports = function (t, a, d) {
 		t(['git', 'test'], twoFooPath)(function (value) {
 			a(value, false, "Both #9");
 		});
-		t(['git', 'test'], twoFooPath).off('change', listener);
+		watcher.off('change', listener);
 
 		return deferred(unlink(twoFile), unlink(twoOtherFile));
 	}, DELAY))(delay(function () {
