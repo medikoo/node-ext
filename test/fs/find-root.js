@@ -33,10 +33,11 @@ module.exports = function (t, a, d) {
 		// Create /one/.git
 		return mkdir(gitOnePath);
 	})(function () {
-		t(isGitRepo, filePath).on('change', function (path) {
+		var promise = t(isGitRepo.watch, filePath, { watch: true });
+		promise.on('change', function (path) {
 			events.push(path);
 		});
-		return t(isGitRepo, filePath);
+		return promise;
 	})(function (path) {
 		a(path, onePath, "#1");
 	})(delay(function () {
@@ -52,7 +53,7 @@ module.exports = function (t, a, d) {
 	}, DELAY))(delay(function () {
 		a(String(events), twoPath, "#2: Event");
 		events = [];
-		return t(isGitRepo, filePath);
+		return t(isGitRepo.isRoot, filePath);
 	}, DELAY))(function (path) {
 		a(path, twoPath, "#2");
 
@@ -65,7 +66,7 @@ module.exports = function (t, a, d) {
 	}, DELAY))(delay(function () {
 		a(String(events), rootPath, "#3: Event");
 		events = [];
-		return t(isGitRepo, filePath);
+		return t(isGitRepo.isRoot, filePath);
 	}, DELAY))(function (path) {
 		a(path, rootPath, "#3");
 
@@ -74,7 +75,7 @@ module.exports = function (t, a, d) {
 	})(delay(function () {
 		a(String(events), twoPath, "#4: Event");
 		events = [];
-		return t(isGitRepo, filePath);
+		return t(isGitRepo.isRoot, filePath);
 	}, DELAY))(function (path) {
 		a(path, twoPath, "#4");
 
@@ -91,7 +92,7 @@ module.exports = function (t, a, d) {
 	})(delay(function () {
 		a(String(events), rootPath, "#5: Event");
 		events = [];
-		return t(isGitRepo, filePath);
+		return t(isGitRepo.isRoot, filePath);
 	}, DELAY))(function (path) {
 		a(path, rootPath, "#5");
 
