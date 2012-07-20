@@ -10,5 +10,6 @@ module.exports = function (t, a) {
 		a((value.globalRules == null) || isArray(value.globalRules), true,
 			"#" + name + " Global rules");
 		a(isCallable(value.findRoot), true, "#" + name + " Find root");
+		a(isCallable(value.findRootWatch), true, "#" + name + " Find root (watch)");
 	});
 };
