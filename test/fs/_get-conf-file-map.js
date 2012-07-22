@@ -23,16 +23,18 @@ module.exports = function (t, a, d) {
 	  , oneFile = resolve(onePath, '.gitignore')
 	  , twoPath = resolve(onePath, 'two')
 	  , twoFile = resolve(twoPath, '.gitignore')
-	  , gitTwo  = resolve(twoPath, '.git');
+	  , gitTwo  = resolve(twoPath, '.git')
+	  , watcher;
 
 	deferred(mkdir(gitRoot), mkdir(onePath)(function () {
 		return mkdir(twoPath);
 	}))(delay(function () {
-		t(twoPath, mode).on('change', listener = function (arg) {
+		watcher = t(twoPath, mode, true);
+		watcher.on('change', listener = function (arg) {
 			a(invoked, false, "Invoked once");
 			invoked = arg;
 		});
-		return t(twoPath, mode);
+		return watcher;
 	}, DELAY))(delay(function (value) {
 		var map = {};
 		data = value;
@@ -107,7 +109,7 @@ module.exports = function (t, a, d) {
 		invoked = false;
 		a(data.root, pgPath, '#9 Root');
 		a.deep(omap(data.map, String), map, '#9 Data');
-		t(twoPath, mode).off('change', listener);
+		watcher.off('change', listener);
 		return deferred(rmdir(gitRoot), rmdir(twoPath)(function () {
 			return rmdir(onePath);
 		}));
