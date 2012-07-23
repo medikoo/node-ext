@@ -57,8 +57,15 @@ module.exports = function (t, a, d) {
 		invoked = false;
 		a(data.root, pgPath, '#3 Root');
 		a.deep(omap(data.map, String), map, '#3 Data');
+		return t(twoPath, mode);
+	}, DELAY))(function (data) {
+		var map = {};
+		map[onePath] = 'foo\n!bar';
+		map[twoPath] = '!raz\ndwa\n';
+		a(data.root, pgPath, '#3 Root');
+		a.deep(omap(data.map, String), map, '#3 Data');
 		return writeFile(rootFile, 'one\n\ntwo\n!three\n');
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		var map = {};
 		map[pgPath] = 'one\n\ntwo\n!three\n';
 		map[onePath] = 'foo\n!bar';
