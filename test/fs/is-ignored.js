@@ -12,12 +12,13 @@ var fs        = require('fs')
   , writeFile = promisify(fs.writeFile)
   , unlink    = promisify(fs.unlink)
   , rmdir     = promisify(fs.rmdir)
+  , FindRoot  = require('../../lib/fs/find-root').FindRoot
   , modes     = require('../../lib/fs/_ignorefile-modes')
 
   , pgPath = resolve(__dirname, '../__playground/is-ignored');
 
 module.exports = function (t, a, d) {
-	var data, invoked = null, listener
+	var data, invoked = null, listener, testFindRoot
 	  , DELAY = 100
 	  , gitRoot = resolve(pgPath, '.git')
 	  , rootFile = resolve(pgPath, '.gitignore')
@@ -32,11 +33,15 @@ module.exports = function (t, a, d) {
 
 	modes.test = {
 		filename: '.ignore',
-		globalRules: ['.ignore'],
-		findRoot: partial.call(require('../../lib/fs/find-root'),
-			memoize.call(function (path) {
-				return ee(deferred(path === onePath));
-			}))
+		findRoot: testFindRoot = function (path) {
+			var finder = new FindRoot(path);
+			finder.isRoot = function (path) {
+				return deferred(path === onePath);
+			};
+			finder.next();
+			return finder.promise;
+		},
+		findRootWatch: testFindRoot
 	};
 
 	deferred(mkdir(gitRoot), mkdir(onePath)(function () {
@@ -50,6 +55,7 @@ module.exports = function (t, a, d) {
 			a(invoked, null, "Invoked once");
 			invoked = arg;
 		});
+		watcher.end();
 		return t('git', twoFooPath);
 	}, DELAY))(delay(function (value) {
 		a(value, false, "#1");
@@ -57,75 +63,74 @@ module.exports = function (t, a, d) {
 	}, DELAY))(delay(function () {
 		a(invoked, true, "#2 event");
 		invoked = null;
-		t('git', twoFooPath)(function (value) {
-			a(value, true, "#2");
-		});
+		return t('git', twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, true, "#2");
 		return writeFile(oneFile, '/two/foo');
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, null, "#3 event");
-		t('git', twoFooPath)(function (value) {
-			a(value, true, "#3");
-		});
+		return t('git', twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, true, "#3");
 		return writeFile(twoFile, '!foo');
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, false, "#4 event");
 		invoked = null;
-		t('git', twoFooPath)(function (value) {
-			a(value, false, "#4");
-		});
+		return t('git', twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, false, "#4");
 		return deferred(unlink(rootFile), unlink(oneFile));
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, null, "#5 event");
-		t('git', twoFooPath)(function (value) {
-			a(value, false, "#5");
-		});
+		return t('git', twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, false, "#5");
 		return unlink(twoFile);
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, null, "#6 event");
 		invoked = null;
-		t('git', twoFooPath)(function (value) {
-			a(value, false, "#6");
-		});
+		return t('git', twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, false, "#6");
 		return writeFile(oneFile, '/two/foo\n!/two/foo');
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, null, "#7 event");
 		invoked = null;
-		t('git', twoFooPath)(function (value) {
-			a(value, false, "#7");
-		});
+		return t('git', twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, false, "#7");
 		return writeFile(rootFile, 'two');
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, true, "#8 event");
 		invoked = null;
-		t('git', twoFooPath)(function (value) {
-			a(value, true, "#8");
-		});
+		return t('git', twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, true, "#8");
 		return unlink(rootFile);
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, false, "#9 event");
 		invoked = null;
-		t('git', twoFooPath)(function (value) {
-			a(value, false, "#9");
-		});
+		return t('git', twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, false, "#9");
 		return writeFile(rootFile, '/one');
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, true, "#10 event");
 		invoked = null;
-		t('git', twoFooPath)(function (value) {
-			a(value, true, "#10");
-		});
-		t('git', twoFooPath).off('change', listener);
+		return t('git', twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, true, "#10");
+		watcher.off('change', listener);
 		return deferred(writeFile(rootFile, 'one\n!one/two/foo'), unlink(oneFile));
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, null, "#11 event");
 		invoked = null;
-		t('git', twoFooPath)(function (value) {
-			a(value, true, "#11");
-		});
+		return t('git', twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, true, "#11");
 
 		return unlink(rootFile);
-	}, DELAY))(delay(function () {
-		watcher.off('change', listener);
+	})(delay(function () {
 		invoked = null;
 
 		watcher = t(['git', 'test'], twoFooPath, { watch: true });
@@ -133,6 +138,7 @@ module.exports = function (t, a, d) {
 			a(invoked, null, "Invoked once");
 			invoked = arg;
 		});
+		watcher.end();
 		return t('git', twoFooPath);
 	}, DELAY))(function (value) {
 		a(value, false, "Both #1");
@@ -140,62 +146,62 @@ module.exports = function (t, a, d) {
 	})(delay(function () {
 		a(invoked, true, "Both #2");
 		invoked = null;
-		t(['git', 'test'], twoFooPath)(function (value) {
-			a(value, true, "Both #2");
-		});
+		return t(['git', 'test'], twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, true, "Both #2");
 		return writeFile(twoOtherFile, '!foo');
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, false, "Both #3");
 		invoked = null;
-		t(['git', 'test'], twoFooPath)(function (value) {
-			a(value, false, "Both #3");
-		});
+		return t(['git', 'test'], twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, false, "Both #3");
 		return writeFile(rootFile, 'one\n');
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, true, "Both #4");
 		invoked = null;
-		t(['git', 'test'], twoFooPath)(function (value) {
-			a(value, true, "Both #4");
-		});
+		return t(['git', 'test'], twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, true, "Both #4");
 		return unlink(rootFile);
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, false, "Both #5");
 		invoked = null;
-		t(['git', 'test'], twoFooPath)(function (value) {
-			a(value, false, "Both #5");
-		});
+		return t(['git', 'test'], twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, false, "Both #5");
 		return writeFile(twoOtherFile, 'foo');
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, true, "Both #6");
 		invoked = null;
-		t(['git', 'test'], twoFooPath)(function (value) {
-			a(value, true, "Both #6");
-		});
+		return t(['git', 'test'], twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, true, "Both #6");
 		return writeFile(twoFile, '!foo');
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, null, "Both #7");
 		invoked = null;
-		t(['git', 'test'], twoFooPath)(function (value) {
-			a(value, true, "Both #7");
-		});
+		return t(['git', 'test'], twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, true, "Both #7");
 		return writeFile(twoOtherFile, '!foo');
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, false, "Both #8");
 		invoked = null;
-		t(['git', 'test'], twoFooPath)(function (value) {
-			a(value, false, "Both #8");
-		});
+		return t(['git', 'test'], twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, false, "Both #8");
 		return writeFile(twoFile, 'foo');
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 		a(invoked, null, "Both #9");
 		invoked = null;
-		t(['git', 'test'], twoFooPath)(function (value) {
-			a(value, false, "Both #9");
-		});
+		return t(['git', 'test'], twoFooPath);
+	}, DELAY))(function (value) {
+		a(value, false, "Both #9");
 		watcher.off('change', listener);
 
 		return deferred(unlink(twoFile), unlink(twoOtherFile));
-	}, DELAY))(delay(function () {
+	})(delay(function () {
 
 		t(null, twoFooPath, { globalRules: 'foo' })(function (value) {
 			a(value, true, "Global: Direct");
