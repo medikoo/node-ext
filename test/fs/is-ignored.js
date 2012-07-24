@@ -18,7 +18,7 @@ var fs        = require('fs')
   , pgPath = resolve(__dirname, '../__playground/is-ignored');
 
 module.exports = function (t, a, d) {
-	var data, invoked = null, listener, testFindRoot
+	var data, invoked = null, listener, testIsRoot
 	  , DELAY = 100
 	  , gitRoot = resolve(pgPath, '.git')
 	  , rootFile = resolve(pgPath, '.gitignore')
@@ -33,15 +33,10 @@ module.exports = function (t, a, d) {
 
 	modes.test = {
 		filename: '.ignore',
-		findRoot: testFindRoot = function (path) {
-			var finder = new FindRoot(path);
-			finder.isRoot = function (path) {
-				return deferred(path === onePath);
-			};
-			finder.next();
-			return finder.promise;
+		isRoot: testIsRoot = function (path) {
+			return deferred(path === onePath);
 		},
-		findRootWatch: testFindRoot
+		isRootWatch: testIsRoot
 	};
 
 	deferred(mkdir(gitRoot), mkdir(onePath)(function () {

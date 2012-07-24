@@ -9,7 +9,7 @@ module.exports = function (t, a) {
 		a.ok(value.filename, "#" + name + " Filename");
 		a((value.globalRules == null) || isArray(value.globalRules), true,
 			"#" + name + " Global rules");
-		a(isCallable(value.findRoot), true, "#" + name + " Find root");
-		a(isCallable(value.findRootWatch), true, "#" + name + " Find root (watch)");
+		a(isCallable(value.isRoot), true, "#" + name + " Find root");
+		a(isCallable(value.isRootWatch), true, "#" + name + " Find root (watch)");
 	});
 };
