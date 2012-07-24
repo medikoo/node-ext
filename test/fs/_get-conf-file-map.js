@@ -12,7 +12,7 @@ var fs        = require('fs')
   , rmdir     = promisify(fs.rmdir)
   , mode      = require('../../lib/fs/_ignorefile-modes').git
 
-  , pgPath = resolve(__dirname, '../__playground/_get-ignorefiles-map')
+  , pgPath = resolve(__dirname, '../__playground/_get-conf-file-map')
 
 module.exports = function (t, a, d) {
 	var data, invoked = false, listener
