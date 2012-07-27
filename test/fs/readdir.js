@@ -317,6 +317,63 @@ module.exports = function (t) {
 				}).end();
 			}, DELAY)).end(d);
 		},
+		"Global rules": function (a, d) {
+			var rules = ['one']
+			  , re = /(?:^|\/)one(?:\/|$)/
+			  , reader = t(pgPath, { depth: 2, globalRules: rules, watch: true })
+			  , otherName = replaceSep('dthree/dtwo/one')
+			  , otherPath = resolve(pgPath, otherName)
+			  , testName = replaceSep('dtwo/fooone')
+			  , testPath = resolve(pgPath, testName)
+			  , paths = paths2.filter(function (path) {
+					return !re.test(path);
+				})
+			  , invoked = false;
+
+			reader.on('change', function (data) {
+				invoked = data;
+			});
+			reader(function (data) {
+				a.deep(data.sort(), paths);
+				return mkdir(otherPath);
+			})(delay(function () {
+				a(invoked, false, "Created other type: event");
+				invoked = false;
+				reader(function (data) {
+					a.deep(data.sort(), paths, "Created other type: data");
+				}).end();
+				return rmdir(otherPath);
+			}, DELAY))(delay(function () {
+				a(invoked, false, "Deleted other type: event");
+				invoked = false;
+				reader(function (data) {
+					a.deep(data.sort(), paths, "Deleted other type: data");
+				}).end();
+				return mkdir(testPath);
+			}, DELAY))(delay(function () {
+				a.deep(invoked.old, [], "Created: old");
+				a.deep(invoked.new, [testName], "Created: new");
+				invoked = false;
+				reader(function (data) {
+					var npaths = copy.call(paths);
+					npaths.push(testName);
+					a.deep(data.sort(), npaths.sort(), "Created: data");
+				}).end();
+				return t(pgPath, { depth: 2, globalRules: rules });
+			}, DELAY))(function (data) {
+				var npaths = copy.call(paths);
+				npaths.push(testName);
+				a.deep(data.sort(), npaths.sort(), "Not watched");
+				return rmdir(testPath);
+			})(delay(function () {
+				a.deep(invoked.old, [testName], "Deleted: old");
+				a.deep(invoked.new, [], "Deleted: new");
+				invoked = false;
+				reader(function (data) {
+					a.deep(data.sort(), paths, "Deleted: data");
+				}).end();
+			}, DELAY)).end(d);
+		},
 		"Pattern & Type": function (a, d) {
 			var pattern = /one$/, reader = t(pgPath,
 				{ depth: 2, type: { file: true }, pattern: pattern, watch: true })
