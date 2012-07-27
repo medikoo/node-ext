@@ -68,10 +68,10 @@ module.exports = function (t) {
 				reader.on('change', function (data) {
 					invoked = data;
 				});
-				reader(function (data) {
+				reader(delay(function (data) {
 					a.deep(data.sort(), paths);
 					return mkdir(testPath)
-				})(delay(function () {
+				}, DELAY*2))(delay(function () {
 					a.deep(invoked.old, [], "Created: old");
 					a.deep(invoked.new, [testName], "Created: new");
 					invoked = false;
