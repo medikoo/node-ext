@@ -31,16 +31,19 @@ module.exports = function (t, a, d) {
 	delay(function () {
 		return mkdir(dirPath);
 	}, DELAY)()(delay(function () {
-		t(dirPath).on('change', function (e) { ++ondirchange; });
-		t(dirPath).on('end', function (e) { ++ondirend; });
+		var emitter = t(dirPath);
+		emitter.on('change', function (e) { ++ondirchange; });
+		emitter.on('end', function (e) { ++ondirend; });
 	}, DELAY))(delay(function () {
 		return writeFile(filePath, 'raz');
 	}, DELAY))(delay(function () {
+		var emitter;
 		a(ondirchange, 1, "Dir change: File created");
 		a(ondirend, 0, "Dir end: File created");
 		ondirchange = ondirend = 0;
-		t(filePath).on('change', function () { ++onfilechange });
-		t(filePath).on('end', function () { ++onfileend });
+		emitter = t(filePath);
+		emitter.on('change', function () { ++onfilechange });
+		emitter.on('end', function () { ++onfileend });
 	}, DELAY))(delay(function () {
 		return open(filePath, 'a')(function (fd) {
 			return write(fd, new Buffer('dwatrzy'), 0, 3, null)(function () {
