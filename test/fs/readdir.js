@@ -72,8 +72,8 @@ module.exports = function (t) {
 					a.deep(data.sort(), paths);
 					return mkdir(testPath)
 				}, DELAY*2))(delay(function () {
-					a.deep(invoked.old, [], "Created: old");
-					a.deep(invoked.new, [testName], "Created: new");
+					a.deep(invoked.removed, [], "Created: removed");
+					a.deep(invoked.added, [testName], "Created: added");
 					invoked = false;
 					reader(function (data) {
 						var npaths = copy.call(paths);
@@ -87,8 +87,8 @@ module.exports = function (t) {
 					a.deep(data.sort(), npaths.sort(), "Not watched");
 					return rmdir(testPath);
 				})(delay(function () {
-					a.deep(invoked.old, [testName], "Deleted: old");
-					a.deep(invoked.new, [], "Deleted: new");
+					a.deep(invoked.removed, [testName], "Deleted: removed");
+					a.deep(invoked.added, [], "Deleted: added");
 					invoked = false;
 					reader(function (data) {
 						a.deep(data.sort(), paths, "Deleted: data");
@@ -110,8 +110,8 @@ module.exports = function (t) {
 				})(delay(function () {
 					return mkdir(testPath);
 				}, DELAY))(delay(function () {
-					a.deep(invoked.old, [], "Created: old");
-					a.deep(invoked.new, [testName], "Created: new");
+					a.deep(invoked.removed, [], "Created: removed");
+					a.deep(invoked.added, [testName], "Created: added");
 					invoked = false;
 					reader(function (data) {
 						var npaths = copy.call(paths);
@@ -125,8 +125,8 @@ module.exports = function (t) {
 					a.deep(data.sort(), npaths.sort(), "Not watched");
 					return rmdir(testPath);
 				})(delay(function () {
-					a.deep(invoked.old, [testName], "Deleted: old");
-					a.deep(invoked.new, [], "Deleted: new");
+					a.deep(invoked.removed, [testName], "Deleted: removed");
+					a.deep(invoked.added, [], "Deleted: added");
 					invoked = false;
 					reader(function (data) {
 						a.deep(data.sort(), paths, "Deleted: data");
@@ -148,8 +148,8 @@ module.exports = function (t) {
 				})(delay(function () {
 					return writeFile(testPath, 'foo');
 				}, DELAY))(delay(function () {
-					a.deep(invoked.old, [], "Created: old");
-					a.deep(invoked.new, [testName], "Created: new");
+					a.deep(invoked.removed, [], "Created: removed");
+					a.deep(invoked.added, [testName], "Created: added");
 					invoked = false;
 					reader(function (data) {
 						var npaths = copy.call(paths);
@@ -163,8 +163,8 @@ module.exports = function (t) {
 					a.deep(data.sort(), npaths.sort(), "Not watched");
 					return unlink(testPath);
 				})(delay(function () {
-					a.deep(invoked.old, [testName], "Deleted: old");
-					a.deep(invoked.new, [], "Deleted: new");
+					a.deep(invoked.removed, [testName], "Deleted: removed");
+					a.deep(invoked.added, [], "Deleted: added");
 					invoked = false;
 					reader(function (data) {
 						a.deep(data.sort(), paths, "Deleted: data");
@@ -200,8 +200,8 @@ module.exports = function (t) {
 				}).end();
 				return writeFile(testPath, 'foo');
 			}, DELAY))(delay(function () {
-				a.deep(invoked.old, [], "Created: old");
-				a.deep(invoked.new, [testName], "Created: new");
+				a.deep(invoked.removed, [], "Created: removed");
+				a.deep(invoked.added, [testName], "Created: added");
 				invoked = false;
 				reader(function (data) {
 					var npaths = copy.call(paths);
@@ -215,8 +215,8 @@ module.exports = function (t) {
 				a.deep(data.sort(), npaths.sort(), "Not watched");
 				return unlink(testPath);
 			})(delay(function () {
-				a.deep(invoked.old, [testName], "Deleted: old");
-				a.deep(invoked.new, [], "Deleted: new");
+				a.deep(invoked.removed, [testName], "Deleted: removed");
+				a.deep(invoked.added, [], "Deleted: added");
 				invoked = false;
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
@@ -238,8 +238,8 @@ module.exports = function (t) {
 				a.deep(data.sort(), paths);
 				return mkdir(testPath);
 			}, DELAY))(delay(function () {
-				a.deep(invoked.old, [], "Created: old");
-				a.deep(invoked.new, [testName], "Created: new");
+				a.deep(invoked.removed, [], "Created: removed");
+				a.deep(invoked.added, [testName], "Created: added");
 				invoked = false;
 				reader(function (data) {
 					var npaths = copy.call(paths);
@@ -253,8 +253,8 @@ module.exports = function (t) {
 				a.deep(data.sort(), npaths.sort(), "Not watched");
 				return rmdir(testPath);
 			})(delay(function () {
-				a.deep(invoked.old, [testName], "Deleted: old");
-				a.deep(invoked.new, [], "Deleted: new");
+				a.deep(invoked.removed, [testName], "Deleted: removed");
+				a.deep(invoked.added, [], "Deleted: added");
 				invoked = false;
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
@@ -294,8 +294,8 @@ module.exports = function (t) {
 				}).end();
 				return mkdir(testPath);
 			}, DELAY))(delay(function () {
-				a.deep(invoked.old, [], "Created: old");
-				a.deep(invoked.new, [testName], "Created: new");
+				a.deep(invoked.removed, [], "Created: removed");
+				a.deep(invoked.added, [testName], "Created: added");
 				invoked = false;
 				reader(function (data) {
 					var npaths = copy.call(paths);
@@ -309,8 +309,8 @@ module.exports = function (t) {
 				a.deep(data.sort(), npaths.sort(), "Not watched");
 				return rmdir(testPath);
 			})(delay(function () {
-				a.deep(invoked.old, [testName], "Deleted: old");
-				a.deep(invoked.new, [], "Deleted: new");
+				a.deep(invoked.removed, [testName], "Deleted: removed");
+				a.deep(invoked.added, [], "Deleted: added");
 				invoked = false;
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
@@ -351,8 +351,8 @@ module.exports = function (t) {
 				}).end();
 				return mkdir(testPath);
 			}, DELAY))(delay(function () {
-				a.deep(invoked.old, [], "Created: old");
-				a.deep(invoked.new, [testName], "Created: new");
+				a.deep(invoked.removed, [], "Created: removed");
+				a.deep(invoked.added, [testName], "Created: added");
 				invoked = false;
 				reader(function (data) {
 					var npaths = copy.call(paths);
@@ -366,8 +366,8 @@ module.exports = function (t) {
 				a.deep(data.sort(), npaths.sort(), "Not watched");
 				return rmdir(testPath);
 			})(delay(function () {
-				a.deep(invoked.old, [testName], "Deleted: old");
-				a.deep(invoked.new, [], "Deleted: new");
+				a.deep(invoked.removed, [testName], "Deleted: removed");
+				a.deep(invoked.added, [], "Deleted: added");
 				invoked = false;
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
@@ -405,8 +405,8 @@ module.exports = function (t) {
 				}).end();
 				return writeFile(testPath, 'foo');
 			}, DELAY))(delay(function () {
-				a.deep(invoked.old, [], "Created: old");
-				a.deep(invoked.new, [testName], "Created: new");
+				a.deep(invoked.removed, [], "Created: removed");
+				a.deep(invoked.added, [testName], "Created: added");
 				invoked = false;
 				reader(function (data) {
 					var npaths = copy.call(paths);
@@ -420,8 +420,8 @@ module.exports = function (t) {
 				a.deep(data.sort(), npaths.sort(), "Not watched");
 				return unlink(testPath);
 			})(delay(function () {
-				a.deep(invoked.old, [testName], "Deleted: old");
-				a.deep(invoked.new, [], "Deleted: new");
+				a.deep(invoked.removed, [testName], "Deleted: removed");
+				a.deep(invoked.added, [], "Deleted: added");
 				invoked = false;
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
@@ -445,10 +445,10 @@ module.exports = function (t) {
 				if (!invoked.length) {
 					return false;
 				}
-				result = { data: invoked[0].data, old: [], new: [] };
+				result = { data: invoked[0].data, removed: [], added: [] };
 				invoked.forEach(function (data) {
-					push.apply(result.new, data.new);
-					push.apply(result.old, data.old);
+					push.apply(result.added, data.added);
+					push.apply(result.removed, data.removed);
 				});
 				invoked = [];
 				return result;
@@ -481,8 +481,8 @@ module.exports = function (t) {
 				return mkdir(testPath);
 			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
-				a.deep(invoked.old, [], "Created: old");
-				a.deep(invoked.new, [testName], "Created: new");
+				a.deep(invoked.removed, [], "Created: removed");
+				a.deep(invoked.added, [testName], "Created: added");
 				reader(function (data) {
 					var npaths = copy.call(paths);
 					npaths.push(testName);
@@ -496,8 +496,8 @@ module.exports = function (t) {
 				return rmdir(testPath);
 			})(delay(function () {
 				var invoked = mergeInvoked();
-				a.deep(invoked.old, [testName], "Deleted: old");
-				a.deep(invoked.new, [], "Deleted: new");
+				a.deep(invoked.removed, [testName], "Deleted: removed");
+				a.deep(invoked.added, [], "Deleted: added");
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
 				}).end();
@@ -507,10 +507,10 @@ module.exports = function (t) {
 					return (path !== 'one') && (path.indexOf(sep + 'one') === -1);
 				}).sort();
 				var invoked = mergeInvoked();
-				a.deep(invoked && invoked.old && invoked.old.sort(),
+				a.deep(invoked && invoked.removed && invoked.removed.sort(),
 					diff.call(paths, npaths).sort(),
-					"Ignored: old");
-				a.deep(invoked.new, [], "Ignored: new");
+					"Ignored: removed");
+				a.deep(invoked.added, [], "Ignored: added");
 				reader(function (data) {
 					a.deep(data.sort(), npaths, "Ignored: data");
 				}).end();
@@ -534,10 +534,10 @@ module.exports = function (t) {
 				if (!invoked.length) {
 					return false;
 				}
-				result = { data: invoked[0].data, old: [], new: [] };
+				result = { data: invoked[0].data, removed: [], added: [] };
 				invoked.forEach(function (data) {
-					push.apply(result.new, data.new);
-					push.apply(result.old, data.old);
+					push.apply(result.added, data.added);
+					push.apply(result.removed, data.removed);
 				});
 				invoked = [];
 				return result;
@@ -573,8 +573,8 @@ module.exports = function (t) {
 				return writeFile(testPath, 'foo');
 			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
-				a.deep(invoked.old, [], "Created: old");
-				a.deep(invoked.new, [testName], "Created: new");
+				a.deep(invoked.removed, [], "Created: removed");
+				a.deep(invoked.added, [testName], "Created: added");
 				reader(function (data) {
 					var npaths = copy.call(paths);
 					npaths.push(testName);
@@ -589,8 +589,8 @@ module.exports = function (t) {
 				return unlink(testPath);
 			})(delay(function () {
 				var invoked = mergeInvoked();
-				a.deep(invoked.old, [testName], "Deleted: old");
-				a.deep(invoked.new, [], "Deleted: new");
+				a.deep(invoked.removed, [testName], "Deleted: removed");
+				a.deep(invoked.added, [], "Deleted: added");
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
 				}).end();
@@ -601,9 +601,9 @@ module.exports = function (t) {
 					return (path !== 'one') && (path.indexOf(sep + 'one') === -1);
 				}).sort();
 				var invoked = mergeInvoked();
-				a.deep(invoked.old && invoked.old.sort(),
-					diff.call(paths, npaths).sort(), "Ignored: old");
-				a.deep(invoked.new, [], "Ignored: new");
+				a.deep(invoked.removed && invoked.removed.sort(),
+					diff.call(paths, npaths).sort(), "Ignored: removed");
+				a.deep(invoked.added, [], "Ignored: added");
 				reader(function (data) {
 					a.deep(data.sort(), npaths, "Ignored: data");
 				}).end();
@@ -627,10 +627,10 @@ module.exports = function (t) {
 				if (!invoked.length) {
 					return false;
 				}
-				result = { data: invoked[0].data, old: [], new: [] };
+				result = { data: invoked[0].data, removed: [], added: [] };
 				invoked.forEach(function (data) {
-					push.apply(result.new, data.new);
-					push.apply(result.old, data.old);
+					push.apply(result.added, data.added);
+					push.apply(result.removed, data.removed);
 				});
 				invoked = [];
 				return result;
@@ -664,8 +664,8 @@ module.exports = function (t) {
 				return mkdir(testPath);
 			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
-				a.deep(invoked.old, [], "Created: old");
-				a.deep(invoked.new, [testName], "Created: new");
+				a.deep(invoked.removed, [], "Created: removed");
+				a.deep(invoked.added, [testName], "Created: added");
 				reader(function (data) {
 					var npaths = copy.call(paths);
 					npaths.push(testName);
@@ -680,8 +680,8 @@ module.exports = function (t) {
 				return rmdir(testPath);
 			})(delay(function () {
 				var invoked = mergeInvoked();
-				a.deep(invoked.old, [testName], "Deleted: old");
-				a.deep(invoked.new, [], "Deleted: new");
+				a.deep(invoked.removed, [testName], "Deleted: removed");
+				a.deep(invoked.added, [], "Deleted: added");
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
 				}).end();
@@ -692,9 +692,9 @@ module.exports = function (t) {
 					return (path !== 'one') && (path.indexOf(sep + 'one') === -1);
 				}).sort();
 				var invoked = mergeInvoked();
-				a.deep(invoked && invoked.old && invoked.old.sort(),
-					diff.call(paths, npaths).sort(), "Ignored: old");
-				a.deep(invoked.new, [], "Ignored: new");
+				a.deep(invoked && invoked.removed && invoked.removed.sort(),
+					diff.call(paths, npaths).sort(), "Ignored: removed");
+				a.deep(invoked.added, [], "Ignored: added");
 				reader(function (data) {
 					a.deep(data.sort(), npaths, "Ignored: data");
 				}).end();
@@ -718,10 +718,10 @@ module.exports = function (t) {
 				if (!invoked.length) {
 					return false;
 				}
-				result = { data: invoked[0].data, old: [], new: [] };
+				result = { data: invoked[0].data, removed: [], added: [] };
 				invoked.forEach(function (data) {
-					push.apply(result.new, data.new);
-					push.apply(result.old, data.old);
+					push.apply(result.added, data.added);
+					push.apply(result.removed, data.removed);
 				});
 				invoked = [];
 				return result;
@@ -755,8 +755,8 @@ module.exports = function (t) {
 				return writeFile(testPath, 'foo');
 			}, DELAY))(delay(function () {
 				var invoked = mergeInvoked();
-				a.deep(invoked.old, [], "Created: old");
-				a.deep(invoked.new, [testName], "Created: new");
+				a.deep(invoked.removed, [], "Created: removed");
+				a.deep(invoked.added, [testName], "Created: added");
 				reader(function (data) {
 					var npaths = copy.call(paths);
 					npaths.push(testName);
@@ -771,8 +771,8 @@ module.exports = function (t) {
 				return unlink(testPath);
 			})(delay(function () {
 				var invoked = mergeInvoked();
-				a.deep(invoked.old, [testName], "Deleted: old");
-				a.deep(invoked.new, [], "Deleted: new");
+				a.deep(invoked.removed, [testName], "Deleted: removed");
+				a.deep(invoked.added, [], "Deleted: added");
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
 				}).end();
@@ -783,9 +783,9 @@ module.exports = function (t) {
 					return (path !== 'one') && (path.indexOf(sep + 'one') === -1);
 				}).sort();
 				var invoked = mergeInvoked();
-				a.deep(invoked && invoked.old && invoked.old.sort(),
-					diff.call(paths, npaths).sort(), "Ignored: old");
-				a.deep(invoked.new, [], "Ignored: new");
+				a.deep(invoked && invoked.removed && invoked.removed.sort(),
+					diff.call(paths, npaths).sort(), "Ignored: removed");
+				a.deep(invoked.added, [], "Ignored: added");
 				reader(function (data) {
 					a.deep(data.sort(), npaths, "Ignored: data");
 				}).end();
