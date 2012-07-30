@@ -319,7 +319,7 @@ module.exports = function (t) {
 		},
 		"Global rules": function (a, d) {
 			var rules = ['one']
-			  , re = /(?:^|\/)one(?:\/|$)/
+			  , re = /(?:^|\/|\\)one(?:\/|\\|$)/
 			  , reader = t(pgPath, { depth: 2, globalRules: rules, watch: true })
 			  , otherName = replaceSep('dthree/dtwo/one')
 			  , otherPath = resolve(pgPath, otherName)
