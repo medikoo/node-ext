@@ -26,7 +26,7 @@
   "dependencies": {
     "deferred": "git://github.com/medikoo/deferred.git",
     "es5-ext": "git://github.com/medikoo/es5-ext.git",
-    "event-emitter": "0.1.x",
+    "event-emitter": "git://github.com/medikoo/es5-ext.git",
     "minimatch": "0.2.x"
   },
   "scripts": {
