@@ -18,7 +18,7 @@ var fs        = require('fs')
 
 module.exports = function (t, a, d) {
 	var ondirchange = 0, onfilechange = 0, ondirend = 0, onfileend = 0, tmpPath
-	  , DELAY = 100, DELAYWAIT = 2000
+	  , DELAY = 200, DELAYWAIT = 2000
 	  , tmpFilePath, alt
 	  , dirPath = resolve(pgPath, 'tmpdir')
 	  , filePath = resolve(dirPath, 'tmpfile')
@@ -30,12 +30,12 @@ module.exports = function (t, a, d) {
 
 	delay(function () {
 		return mkdir(dirPath);
-	}, DELAY)()(function () {
+	}, DELAY)()(delay(function () {
 		var dirWatch;
 		dirWatch = t(dirPath);
 		dirWatch.on('change', function (e) { ++ondirchange; });
 		dirWatch.on('end', function (e) { ++ondirend; });
-	})(delay(function () {
+	}, DELAY))(delay(function () {
 		return writeFile(filePath, 'raz');
 	}, DELAY))(delay(function () {
 		var fileWatch;
