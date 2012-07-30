@@ -18,6 +18,7 @@ var fs        = require('fs')
 
 module.exports = function (t, a, d) {
 	var ondirchange = [], onfilechange = [], tmpPath, tmpFilePath, alt
+	  , DELAY = 100
 	  , dirPath = resolve(pgPath, 'tmpdir')
 	  , filePath = resolve(dirPath, 'tmpfile')
 	  , dirCurrent, fileCurrent
@@ -31,13 +32,13 @@ module.exports = function (t, a, d) {
 
 	delay(function () {
 		return mkdir(dirPath);
-	}, 20)()(delay(function () {
+	}, DELAY)()(delay(function () {
 		a(String(ondirchange), 'create', "Dir: Dir created");
 		a(String(onfilechange), '', "File: Dir created");
 		ondirchange = [];
 		onfilechange = [];
 		return writeFile(filePath, 'raz');
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(String(ondirchange), 'modify', "Dir: File created");
 		a(String(onfilechange), 'create', "File: File created");
 		ondirchange = [];
@@ -47,56 +48,56 @@ module.exports = function (t, a, d) {
 				return close(fd);
 			});
 		});
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(String(ondirchange), '', "Dir: File changed");
 		a(String(onfilechange), 'modify', "File: File changed");
 		ondirchange = [];
 		onfilechange = [];
 		return rename(filePath, filePath + 'r');
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(String(ondirchange), 'modify', "Dir: File renamed");
 		a(String(onfilechange), 'remove', "File: File renamed");
 		ondirchange = [];
 		onfilechange = [];
 		return rename(filePath + 'r', filePath);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(String(ondirchange), 'modify', "Dir: File renamed back");
 		a(String(onfilechange), 'create', "File: File renamed back");
 		ondirchange = [];
 		onfilechange = [];
 		return unlink(filePath);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(String(ondirchange), 'modify', "Dir: File removed");
 		a(String(onfilechange), 'remove', "File: File removed");
 		ondirchange = [];
 		onfilechange = [];
 		return rmdir(dirPath);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(String(ondirchange), 'remove', "Dir: Dir removed");
 		a(String(onfilechange), '', "File: Dir removed");
 		ondirchange = [];
 		onfilechange = [];
 		return mkdir(dirPath);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(String(ondirchange), 'create', "Dir: Dir created #2");
 		a(String(onfilechange), '', "File: Dir created #2");
 		ondirchange = [];
 		onfilechange = [];
 		return writeFile(filePath, 'raz');
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(String(ondirchange), 'modify', "Dir: File created #2");
 		a(String(onfilechange), 'create', "File: File created #2");
 		ondirchange = [];
 		onfilechange = [];
 		return unlink(filePath);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(String(ondirchange), 'modify', "Dir: File removed #2");
 		a(String(onfilechange), 'remove', "File: File removed #2");
 		ondirchange = [];
 		onfilechange = [];
 		return rmdir(dirPath);
-	}, 20))(delay(function () {
+	}, DELAY))(delay(function () {
 		a(String(ondirchange), 'remove', "Dir: Dir removed #2");
 		a(String(onfilechange), '', "File: Dir removed #2");
-	}, 20)).end(d);
+	}, DELAY)).end(d);
 };
