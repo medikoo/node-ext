@@ -188,7 +188,7 @@ module.exports = function (t) {
 			});
 			reader(function (data) {
 				a.deep(lengths.sort(),
-					[1, 1,  1, 1, 1, 1, 3, 4, 4, 4, 5, 5, 5, 5, 6], "Events");
+					[1, 1, 1, 1, 1, 1, 3, 4, 4, 4, 5, 5, 5, 5, 6], "Events");
 				a.deep(result.sort(), data.sort(), "Result");
 			}).end(d);
 		},
