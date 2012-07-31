@@ -172,6 +172,26 @@ module.exports = function (t) {
 				}, DELAY)).end(d);
 			}
 		},
+		"Progress events": function (a, d) {
+			var reader = t(pgPath, { depth: Infinity, progressEvents: true })
+			  , paths = pathsAll
+			  , result = []
+			  , lengths = []
+			  , count = 0;;
+
+			reader.on('change', function (data) {
+				++ count;
+				lengths.push(data.added.length);
+				a.deep(data.removed, [], "Removed #" + count);
+				push.apply(result, data.added);
+				a.deep(result.sort(), data.data.sort(), "Data #" + count);
+			});
+			reader(function (data) {
+				a.deep(lengths.sort(),
+					[1, 1,  1, 1, 1, 1, 3, 4, 4, 4, 5, 5, 5, 5, 6], "Events");
+				a.deep(result.sort(), data.sort(), "Result");
+			}).end(d);
+		},
 		"Type": function (a, d) {
 			var reader = t(pgPath, { depth: 2, type: { file: true }, watch: true })
 			  , testName = replaceSep('dtwo/test')
