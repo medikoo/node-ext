@@ -2,10 +2,11 @@
 
 var path      = require('path')
   , normalize = path.normalize
+  , resolve   = path.resolve
 
   , pgPath, upPath, t;
 
-pgPath = __dirname + '/__playground';
+pgPath = resolve(__dirname, '../__playground');
 upPath = path.dirname(path.dirname(__dirname));
 
 module.exports = {

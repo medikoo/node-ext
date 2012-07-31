@@ -1,8 +1,9 @@
 'use strict';
 
-var isNotFoundError = require('../lib/is-module-not-found-error');
+var resolve         = require('path').resolve
+  , isNotFoundError = require('../../lib/module/is-module-not-found-error');
 
-var pg = __dirname + '/__playground/tree-require';
+var pg = resolve(__dirname, '../__playground/tree-require');
 
 module.exports = function (t, a) {
 	var path = pg + '/first/dir'

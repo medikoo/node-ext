@@ -1,7 +1,7 @@
 'use strict';
 
-var join = require('path').join
-  , pg = join(__dirname, '__playground');
+var resolve = require('path').resolve
+  , pg = resolve(__dirname, '../__playground');
 
 module.exports = {
 	"File path": function (t, a) {
@@ -12,6 +12,6 @@ module.exports = {
 		a(t(pg)('./sample'), require(pg + '/sample'));
 	},
 	"Resolve": function (t, a) {
-		a(t(pg).resolve('./sample'), join(pg, 'sample.js'));
+		a(t(pg).resolve('./sample'), resolve(pg, 'sample.js'));
 	}
 };
