@@ -147,5 +147,5 @@ module.exports = function (t, a, d) {
 		a.deep(data, [true, false, false], "#7");
 
 		return rmdir(gitRoot);
-	}).end(d);
+	}).end(d, d);
 };

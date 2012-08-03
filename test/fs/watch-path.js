@@ -99,5 +99,5 @@ module.exports = function (t, a, d) {
 	}, DELAY))(delay(function () {
 		a(String(ondirchange), 'remove', "Dir: Dir removed #2");
 		a(String(onfilechange), '', "File: Dir removed #2");
-	}, DELAY)).end(d);
+	}, DELAY)).end(d, d);
 };

@@ -209,6 +209,6 @@ module.exports = function (t, a, d) {
 		});
 		return deferred(rmdir(gitRoot), rmdir(twoPath)(function () {
 			return rmdir(onePath);
-		}));
-	}, DELAY)).end(d);
+		}))(false);
+	}, DELAY)).end(d, d);
 };
