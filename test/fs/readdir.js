@@ -93,7 +93,7 @@ module.exports = function (t) {
 					reader(function (data) {
 						a.deep(data.sort(), paths, "Deleted: data");
 					}).end();
-				}, DELAY)).end(d);
+				}, DELAY)).end(d, d);
 			},
 			"2": function (a, d) {
 				var reader = t(pgPath, { depth: 2, watch: true })
@@ -131,7 +131,7 @@ module.exports = function (t) {
 					reader(function (data) {
 						a.deep(data.sort(), paths, "Deleted: data");
 					}).end();
-				}, DELAY)).end(d);
+				}, DELAY)).end(d, d);
 			},
 			"∞": function (a, d) {
 				var reader = t(pgPath, { depth: Infinity, watch: true })
@@ -169,7 +169,7 @@ module.exports = function (t) {
 					reader(function (data) {
 						a.deep(data.sort(), paths, "Deleted: data");
 					}).end();
-				}, DELAY)).end(d);
+				}, DELAY)).end(d, d);
 			}
 		},
 		"Progress events": function (a, d) {
@@ -190,7 +190,7 @@ module.exports = function (t) {
 				a.deep(lengths.sort(),
 					[1, 1, 1, 1, 1, 1, 3, 4, 4, 4, 5, 5, 5, 5, 6], "Events");
 				a.deep(result.sort(), data.sort(), "Result");
-			}).end(d);
+			}).end(d, d);
 		},
 		"Type": function (a, d) {
 			var reader = t(pgPath, { depth: 2, type: { file: true }, watch: true })
@@ -241,7 +241,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
 				}).end();
-			}, DELAY)).end(d);
+			}, DELAY)).end(d, d);
 		},
 		"Types": function (a, d) {
 			var reader = t(pgPath, { depth: 2,
@@ -279,7 +279,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
 				}).end();
-			}, DELAY)).end(d);
+			}, DELAY)).end(d, d);
 		},
 		"Pattern": function (a, d) {
 			var pattern = /one$/
@@ -335,7 +335,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
 				}).end();
-			}, DELAY)).end(d);
+			}, DELAY)).end(d, d);
 		},
 		"Global rules": function (a, d) {
 			var rules = ['one']
@@ -392,7 +392,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
 				}).end();
-			}, DELAY)).end(d);
+			}, DELAY)).end(d, d);
 		},
 		"Pattern & Type": function (a, d) {
 			var pattern = /one$/, reader = t(pgPath,
@@ -446,7 +446,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
 				}).end();
-			}, DELAY)).end(d);
+			}, DELAY)).end(d, d);
 		},
 		"Ignored": function (a, d) {
 			var gitPath = resolve(pgPath, '.git')
@@ -534,8 +534,8 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), npaths, "Ignored: data");
 				}).end();
-				return deferred(rmdir(gitPath), unlink(ignoreFile));
-			}, DELAY)).end(d);
+				return deferred(rmdir(gitPath), unlink(ignoreFile))(false);
+			}, DELAY)).end(d, d);
 		},
 		"Ignored & Type": function (a, d) {
 			var gitPath = resolve(pgPath, '.git')
@@ -627,8 +627,8 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), npaths, "Ignored: data");
 				}).end();
-				return deferred(rmdir(gitPath), unlink(ignoreFile));
-			}, DELAY)).end(d);
+				return deferred(rmdir(gitPath), unlink(ignoreFile))(false);
+			}, DELAY)).end(d, d);
 		},
 		"Ignored & Pattern": function (a, d) {
 			var pattern = /done/, gitPath = resolve(pgPath, '.git')
@@ -718,8 +718,8 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), npaths, "Ignored: data");
 				}).end();
-				return deferred(rmdir(gitPath), unlink(ignoreFile));
-			}, DELAY)).end(d);
+				return deferred(rmdir(gitPath), unlink(ignoreFile))(false);
+			}, DELAY)).end(d, d);
 		},
 		"Ignored & Pattern & Type": function (a, d) {
 			var pattern = /done/, gitPath = resolve(pgPath, '.git')
@@ -809,8 +809,8 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), npaths, "Ignored: data");
 				}).end();
-				return deferred(rmdir(gitPath), unlink(ignoreFile));
-			}, DELAY)).end(d);
+				return deferred(rmdir(gitPath), unlink(ignoreFile))(false);
+			}, DELAY)).end(d, d);
 		}
 	};
 };

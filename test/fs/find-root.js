@@ -97,5 +97,5 @@ module.exports = function (t, a, d) {
 		a(path, rootPath, "#5");
 
 		return rmdir(gitRoot);
-	}).end(d);
+	}).end(d, d);
 };
