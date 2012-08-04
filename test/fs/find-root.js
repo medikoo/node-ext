@@ -33,11 +33,11 @@ module.exports = function (t, a, d) {
 		// Create /one/.git
 		return mkdir(gitOnePath);
 	})(function () {
-		var promise = t(isGitRepo.watch, filePath, { watch: true });
-		promise.on('change', function (path) {
+		watcher = t(isGitRepo.watch, filePath, { watch: true });
+		watcher.on('change', function (path) {
 			events.push(path);
 		});
-		return promise;
+		return watcher;
 	})(function (path) {
 		a(path, onePath, "#1");
 	})(delay(function () {
@@ -96,6 +96,7 @@ module.exports = function (t, a, d) {
 	}, DELAY))(function (path) {
 		a(path, rootPath, "#5");
 
+		watcher.close();
 		return rmdir(gitRoot);
 	}).end(d, d);
 };
