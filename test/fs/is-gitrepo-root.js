@@ -146,6 +146,9 @@ module.exports = function (t, a, d) {
 	}, 20))(function (data) {
 		a.deep(data, [true, false, false], "#7");
 
+		w1.close();
+		w2.close();
+		w3.close();
 		return rmdir(gitRoot);
 	}).end(d, d);
 };
