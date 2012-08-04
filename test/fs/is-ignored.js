@@ -2,6 +2,7 @@
 
 var fs        = require('fs')
   , resolve   = require('path').resolve
+  , noop      = require('es5-ext/lib/Function/noop')
   , memoize   = require('es5-ext/lib/Function/prototype/memoize')
   , partial   = require('es5-ext/lib/Function/prototype/partial')
   , deferred  = require('deferred')
@@ -34,7 +35,9 @@ module.exports = function (t, a, d) {
 	modes.test = {
 		filename: '.ignore',
 		isRoot: testIsRoot = function (path) {
-			return deferred(path === onePath);
+			var promise = deferred(path === onePath);
+			promise.close = noop;
+			return promise;
 		},
 		isRootWatch: testIsRoot
 	};
@@ -115,7 +118,7 @@ module.exports = function (t, a, d) {
 		return t('git', twoFooPath);
 	}, DELAY))(function (value) {
 		a(value, true, "#10");
-		watcher.off('change', listener);
+		watcher.close();
 		return deferred(writeFile(rootFile, 'one\n!one/two/foo'), unlink(oneFile));
 	})(delay(function () {
 		a(invoked, null, "#11 event");
@@ -193,7 +196,7 @@ module.exports = function (t, a, d) {
 		return t(['git', 'test'], twoFooPath);
 	}, DELAY))(function (value) {
 		a(value, false, "Both #9");
-		watcher.off('change', listener);
+		watcher.close();
 
 		return deferred(unlink(twoFile), unlink(twoOtherFile));
 	})(delay(function () {
