@@ -21,12 +21,14 @@ module.exports = function (t, a, d) {
 	  , DELAY = 100
 	  , dirPath = resolve(pgPath, 'tmpdir')
 	  , filePath = resolve(dirPath, 'tmpfile')
-	  , dirCurrent, fileCurrent
+	  , dirCurrent, fileCurrent, watch1, watch2
 
-	t(dirPath).on('change', function (e) {
+	watch1 = t(dirPath);
+	watch1.on('change', function (e) {
 		ondirchange.push(e.type);
 	});
-	t(filePath).on('change', function (e) {
+	watch2 = t(filePath);
+	watch2.on('change', function (e) {
 		onfilechange.push(e.type);
 	});
 
@@ -99,5 +101,7 @@ module.exports = function (t, a, d) {
 	}, DELAY))(delay(function () {
 		a(String(ondirchange), 'remove', "Dir: Dir removed #2");
 		a(String(onfilechange), '', "File: Dir removed #2");
+		watch1.close();
+		watch2.close();
 	}, DELAY)).end(d, d);
 };
