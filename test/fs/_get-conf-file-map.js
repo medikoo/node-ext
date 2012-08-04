@@ -116,7 +116,7 @@ module.exports = function (t, a, d) {
 		invoked = false;
 		a(data.root, pgPath, '#9 Root');
 		a.deep(omap(data.map, String), map, '#9 Data');
-		watcher.off('change', listener);
+		watcher.close();
 		return deferred(rmdir(gitRoot), rmdir(twoPath)(function () {
 			return rmdir(onePath);
 		}))(false);
