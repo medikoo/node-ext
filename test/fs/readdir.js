@@ -5,17 +5,13 @@ var push      = Array.prototype.push
   , path      = require('path')
   , copy      = require('es5-ext/lib/Array/prototype/copy')
   , diff      = require('es5-ext/lib/Array/prototype/diff')
-  , memoize   = require('es5-ext/lib/Function/prototype/memoize')
-  , partial   = require('es5-ext/lib/Function/prototype/partial')
   , deferred  = require('deferred')
-  , ee        = require('event-emitter')
   , delay     = deferred.delay
   , promisify = deferred.promisify
   , mkdir     = promisify(fs.mkdir)
   , writeFile = promisify(fs.writeFile)
   , unlink    = promisify(fs.unlink)
   , rmdir     = promisify(fs.rmdir)
-  , modes     = require('../../lib/fs/_ignorefile-modes')
   , sep       = require('../../lib/path/sep')
 
   , basename = path.basename, resolve = path.resolve
@@ -93,6 +89,7 @@ module.exports = function (t) {
 					reader(function (data) {
 						a.deep(data.sort(), paths, "Deleted: data");
 					}).end();
+					reader.close();
 				}, DELAY)).end(d, d);
 			},
 			"2": function (a, d) {
@@ -131,6 +128,7 @@ module.exports = function (t) {
 					reader(function (data) {
 						a.deep(data.sort(), paths, "Deleted: data");
 					}).end();
+					reader.close();
 				}, DELAY)).end(d, d);
 			},
 			"∞": function (a, d) {
@@ -169,6 +167,7 @@ module.exports = function (t) {
 					reader(function (data) {
 						a.deep(data.sort(), paths, "Deleted: data");
 					}).end();
+					reader.close();
 				}, DELAY)).end(d, d);
 			}
 		},
@@ -241,6 +240,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
 				}).end();
+				reader.close();
 			}, DELAY)).end(d, d);
 		},
 		"Types": function (a, d) {
@@ -279,6 +279,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
 				}).end();
+				reader.close();
 			}, DELAY)).end(d, d);
 		},
 		"Pattern": function (a, d) {
@@ -335,6 +336,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
 				}).end();
+				reader.close();
 			}, DELAY)).end(d, d);
 		},
 		"Global rules": function (a, d) {
@@ -392,6 +394,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
 				}).end();
+				reader.close();
 			}, DELAY)).end(d, d);
 		},
 		"Pattern & Type": function (a, d) {
@@ -446,6 +449,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
 				}).end();
+				reader.close();
 			}, DELAY)).end(d, d);
 		},
 		"Ignored": function (a, d) {
@@ -534,6 +538,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), npaths, "Ignored: data");
 				}).end();
+				reader.close();
 				return deferred(rmdir(gitPath), unlink(ignoreFile))(false);
 			}, DELAY)).end(d, d);
 		},
@@ -627,6 +632,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), npaths, "Ignored: data");
 				}).end();
+				reader.close();
 				return deferred(rmdir(gitPath), unlink(ignoreFile))(false);
 			}, DELAY)).end(d, d);
 		},
@@ -718,6 +724,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), npaths, "Ignored: data");
 				}).end();
+				reader.close();
 				return deferred(rmdir(gitPath), unlink(ignoreFile))(false);
 			}, DELAY)).end(d, d);
 		},
@@ -809,6 +816,7 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), npaths, "Ignored: data");
 				}).end();
+				reader.close();
 				return deferred(rmdir(gitPath), unlink(ignoreFile))(false);
 			}, DELAY)).end(d, d);
 		}
