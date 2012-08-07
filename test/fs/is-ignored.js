@@ -3,8 +3,6 @@
 var fs        = require('fs')
   , resolve   = require('path').resolve
   , noop      = require('es5-ext/lib/Function/noop')
-  , memoize   = require('es5-ext/lib/Function/prototype/memoize')
-  , partial   = require('es5-ext/lib/Function/prototype/partial')
   , deferred  = require('deferred')
   , ee        = require('event-emitter')
   , delay     = deferred.delay
@@ -13,7 +11,6 @@ var fs        = require('fs')
   , writeFile = promisify(fs.writeFile)
   , unlink    = promisify(fs.unlink)
   , rmdir     = promisify(fs.rmdir)
-  , FindRoot  = require('../../lib/fs/find-root').FindRoot
   , modes     = require('../../lib/fs/_ignorefile-modes')
 
   , pgPath = resolve(__dirname, '../__playground/is-ignored');
