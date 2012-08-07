@@ -22,12 +22,12 @@ module.exports = function (t, a) {
 	invoked = false;
 
 	x.close();
-	a(invoked, false, "After one of two call");
+	a(invoked, false, "After one of two calls");
 	invoked = false;
 	y.close();
-	a(invoked, true, "After two of two call");
+	a(invoked, true, "After two of two calls");
 	invoked = false;
 	x.close();
-	a(invoked, false, "Second close call has no effect");
+	a(invoked, false, "Second close call has no effect (two calls case)");
 	invoked = false;
 };
