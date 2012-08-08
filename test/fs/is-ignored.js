@@ -194,9 +194,9 @@ module.exports = function (t, a, d) {
 	}, DELAY))(function (value) {
 		a(value, false, "Both #9");
 		watcher.close();
-
-		return deferred(unlink(twoFile), unlink(twoOtherFile));
 	})(delay(function () {
+		return deferred(unlink(twoFile), unlink(twoOtherFile));
+	}, DELAY))(delay(function () {
 
 		t(null, twoFooPath, { globalRules: 'foo' })(function (value) {
 			a(value, true, "Global: Direct");
