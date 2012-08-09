@@ -53,7 +53,7 @@ module.exports = function (t, a, d) {
 	}, DELAY))(delay(function () {
 		a(String(events), twoPath, "#2: Event");
 		events = [];
-		return t(isGitRepo.isRoot, filePath);
+		return t(isGitRepo.basic, filePath);
 	}, DELAY))(function (path) {
 		a(path, twoPath, "#2");
 
@@ -66,7 +66,7 @@ module.exports = function (t, a, d) {
 	}, DELAY))(delay(function () {
 		a(String(events), rootPath, "#3: Event");
 		events = [];
-		return t(isGitRepo.isRoot, filePath);
+		return t(isGitRepo.basic, filePath);
 	}, DELAY))(function (path) {
 		a(path, rootPath, "#3");
 
@@ -75,7 +75,7 @@ module.exports = function (t, a, d) {
 	})(delay(function () {
 		a(String(events), twoPath, "#4: Event");
 		events = [];
-		return t(isGitRepo.isRoot, filePath);
+		return t(isGitRepo.basic, filePath);
 	}, DELAY))(function (path) {
 		a(path, twoPath, "#4");
 
@@ -92,7 +92,7 @@ module.exports = function (t, a, d) {
 	})(delay(function () {
 		a(String(events), rootPath, "#5: Event");
 		events = [];
-		return t(isGitRepo.isRoot, filePath);
+		return t(isGitRepo.basic, filePath);
 	}, DELAY))(function (path) {
 		a(path, rootPath, "#5");
 
