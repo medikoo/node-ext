@@ -6,14 +6,11 @@ var deferred  = require('deferred')
   , isBuffer  = Buffer.isBuffer
   , fs        = require('fs')
   , resolve   = require('path').resolve
-  , mkdir     = promisify(fs.mkdir)
   , open      = promisify(fs.open)
-  , rename    = promisify(fs.rename)
   , write     = promisify(fs.write)
   , close     = promisify(fs.close)
   , writeFile = promisify(fs.writeFile)
   , unlink    = promisify(fs.unlink)
-  , rmdir     = promisify(fs.rmdir)
 
   , pgPath = resolve(__dirname, '../__playground/read-file')
 
