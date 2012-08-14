@@ -172,7 +172,7 @@ module.exports = function (t) {
 			}
 		},
 		"Progress events": function (a, d) {
-			var reader = t(pgPath, { depth: Infinity, progressEvents: true })
+			var reader = t(pgPath, { depth: Infinity, progress: true })
 			  , paths = pathsAll
 			  , result = []
 			  , lengths = []
