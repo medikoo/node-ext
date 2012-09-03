@@ -1,18 +1,19 @@
 'use strict';
 
-var push      = Array.prototype.push
-  , fs        = require('fs')
-  , path      = require('path')
-  , copy      = require('es5-ext/lib/Array/prototype/copy')
-  , diff      = require('es5-ext/lib/Array/prototype/diff')
-  , deferred  = require('deferred')
-  , delay     = deferred.delay
-  , promisify = deferred.promisify
-  , mkdir     = promisify(fs.mkdir)
-  , writeFile = promisify(fs.writeFile)
-  , unlink    = promisify(fs.unlink)
-  , rmdir     = promisify(fs.rmdir)
-  , sep       = require('../../lib/path/sep')
+var push       = Array.prototype.push
+  , fs         = require('fs')
+  , path       = require('path')
+  , copy       = require('es5-ext/lib/Array/prototype/copy')
+  , diff       = require('es5-ext/lib/Array/prototype/diff')
+  , startsWith = require('es5-ext/lib/String/prototype/starts-with')
+  , deferred   = require('deferred')
+  , delay      = deferred.delay
+  , promisify  = deferred.promisify
+  , mkdir      = promisify(fs.mkdir)
+  , writeFile  = promisify(fs.writeFile)
+  , unlink     = promisify(fs.unlink)
+  , rmdir      = promisify(fs.rmdir)
+  , sep        = require('../../lib/path/sep')
 
   , basename = path.basename, resolve = path.resolve
 
@@ -462,7 +463,7 @@ module.exports = function (t) {
 			  , paths = paths2.filter(function (path) {
 					return path.indexOf('dtwo') === -1;
 				})
-			  , reader, invoked = [], mergeInvoked;
+			  , reader, invoked = [], mergeInvoked, npaths;
 
 			mergeInvoked = function () {
 				var result;
@@ -480,6 +481,12 @@ module.exports = function (t) {
 
 			paths.push('.gitignore');
 			paths.sort();
+
+			npaths = paths.filter(function (path) {
+				return (path !== 'one') && (path.indexOf(sep + 'one') === -1) &&
+					!startsWith.call(path, 'dthree/dthree');
+			});
+
 			deferred(mkdir(gitPath), writeFile(ignoreFile, 'dtwo'))(delay(function () {
 				reader = t(pgPath, { depth: 2, ignoreRules: 'git', watch: true });
 				reader.on('change', function (data) {
@@ -525,11 +532,8 @@ module.exports = function (t) {
 				reader(function (data) {
 					a.deep(data.sort(), paths, "Deleted: data");
 				}).end();
-				return writeFile(ignoreFile, 'dtwo\none');
+				return writeFile(ignoreFile, 'dtwo\none\n/dthree/dthree');
 			}, DELAY))(delay(function () {
-				var npaths = paths.filter(function (path) {
-					return (path !== 'one') && (path.indexOf(sep + 'one') === -1);
-				}).sort();
 				var invoked = mergeInvoked();
 				a.deep(invoked && invoked.removed && invoked.removed.sort(),
 					diff.call(paths, npaths).sort(),
@@ -537,6 +541,16 @@ module.exports = function (t) {
 				a.deep(invoked.added, [], "Ignored: added");
 				reader(function (data) {
 					a.deep(data.sort(), npaths, "Ignored: data");
+				}).end();
+				return writeFile(ignoreFile, 'dtwo');
+			}, DELAY))(delay(function () {
+				var invoked = mergeInvoked();
+				a.deep(invoked.removed, [], "Ignored revert: removed");
+				a.deep(invoked && invoked.added && invoked.added.sort(),
+					diff.call(paths, npaths).sort(),
+					"Ignored revert: added");
+				reader(function (data) {
+					a.deep(data.sort(), paths, "Ignored revert: data");
 				}).end();
 				reader.close();
 				return deferred(rmdir(gitPath), unlink(ignoreFile))(false);
