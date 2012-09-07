@@ -18,7 +18,7 @@ var fs        = require('fs')
 
 module.exports = function (t, a, d) {
 	var ondirchange = 0, onfilechange = 0, ondirend = 0, onfileend = 0, tmpPath
-	  , DELAY = 100
+	  , DELAY = 200
 	  , tmpFilePath, alt
 	  , dirPath = resolve(pgPath, 'tmpdir')
 	  , filePath = resolve(dirPath, 'tmpfile')
