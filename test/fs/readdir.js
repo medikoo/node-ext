@@ -17,7 +17,7 @@ var push       = Array.prototype.push
 
   , basename = path.basename, resolve = path.resolve
 
-  , pgPath = resolve(__dirname, '../__playground/readdir');
+  , pgPath = resolve(__dirname, '../__playground/fs/readdir');
 
 module.exports = function (t) {
 	var pathsAll, paths2, paths0, filesAll, files2, files0, replaceSep

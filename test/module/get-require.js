@@ -1,7 +1,7 @@
 'use strict';
 
 var resolve = require('path').resolve
-  , pg = resolve(__dirname, '../__playground');
+  , pg = resolve(__dirname, '../__playground/module/get-require');
 
 module.exports = {
 	"File path": function (t, a) {

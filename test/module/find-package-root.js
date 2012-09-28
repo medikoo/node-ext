@@ -6,7 +6,7 @@ var path      = require('path')
 
   , pgPath, upPath, t;
 
-pgPath = resolve(__dirname, '../__playground');
+pgPath = resolve(__dirname, '../__playground/module/find-package-root');
 upPath = path.dirname(path.dirname(__dirname));
 
 module.exports = {

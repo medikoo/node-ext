@@ -14,7 +14,7 @@ var fs        = require('fs')
   , unlink    = promisify(fs.unlink)
   , rmdir     = promisify(fs.rmdir)
 
-  , pgPath = resolve(__dirname, '../__playground/watch')
+  , pgPath = resolve(__dirname, '../__playground/fs/watch')
 
 module.exports = function (t, a, d) {
 	var ondirchange = 0, onfilechange = 0, ondirend = 0, onfileend = 0, tmpPath

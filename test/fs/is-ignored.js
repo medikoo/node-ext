@@ -13,7 +13,7 @@ var fs        = require('fs')
   , rmdir     = promisify(fs.rmdir)
   , modes     = require('../../lib/fs/_ignorefile-modes')
 
-  , pgPath = resolve(__dirname, '../__playground/is-ignored');
+  , pgPath = resolve(__dirname, '../__playground/fs/is-ignored');
 
 module.exports = function (t, a, d) {
 	var data, invoked = null, listener, testIsRoot

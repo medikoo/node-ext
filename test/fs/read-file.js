@@ -12,7 +12,7 @@ var deferred  = require('deferred')
   , writeFile = promisify(fs.writeFile)
   , unlink    = promisify(fs.unlink)
 
-  , pgPath = resolve(__dirname, '../__playground/read-file')
+  , pgPath = resolve(__dirname, '../__playground/fs/read-file')
 
 module.exports = function (t) {
 	var DELAY = 100;

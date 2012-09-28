@@ -7,7 +7,7 @@ var promisify = require('deferred').promisify
   , dirname = path.dirname, resolve = path.resolve
 	, lstat = promisify(fs.lstat), rmdir = promisify(fs.rmdir)
 
-  , root = resolve(__dirname, '../__playground/mkdir')
+  , root = resolve(__dirname, '../__playground/fs/mkdir')
   , regular = resolve(root, 'foo')
   , existing = resolve(root, 'one')
   , deep = resolve(root, 'foo', 'bar')

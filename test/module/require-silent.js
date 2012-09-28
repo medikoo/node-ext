@@ -1,7 +1,7 @@
 'use strict';
 
 var resolve    = require('path').resolve
-  , playground = resolve(__dirname, '../__playground');
+  , playground = resolve(__dirname, '../__playground/module/require-silent');
 
 module.exports = function (t, a) {
 	var file = playground + '/sample';

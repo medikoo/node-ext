@@ -9,7 +9,7 @@ var fs        = require('fs')
   , rmdir     = promisify(fs.rmdir)
   , isGitRepo = require('../../lib/fs/is-gitrepo-root')
 
-  , rootPath = resolve(__dirname, '../__playground/find-root')
+  , rootPath = resolve(__dirname, '../__playground/fs/find-root')
 
 module.exports = function (t, a, d) {
 	var gitRoot = resolve(rootPath, '.git')
