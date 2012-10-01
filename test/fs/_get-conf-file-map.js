@@ -10,7 +10,7 @@ var fs        = require('fs')
   , writeFile = promisify(fs.writeFile)
   , unlink    = promisify(fs.unlink)
   , rmdir     = promisify(fs.rmdir)
-  , mode      = require('../../lib/fs/_ignorefile-modes').git
+  , mode      = require('../../lib/fs/_ignore-modes/git')
 
   , pgPath = resolve(__dirname, '../__playground/fs/_get-conf-file-map')
 

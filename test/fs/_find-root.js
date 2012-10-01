@@ -7,7 +7,7 @@ var fs        = require('fs')
   , delay     = deferred.delay
   , mkdir     = promisify(fs.mkdir)
   , rmdir     = promisify(fs.rmdir)
-  , isGitRepo = require('../../lib/fs/is-gitrepo-root')
+  , gitMode   = require('../../lib/fs/_ignore-modes/git')
 
   , rootPath = resolve(__dirname, '../__playground/fs/_find-root')
 
@@ -33,7 +33,7 @@ module.exports = function (t, a, d) {
 		// Create /one/.git
 		return mkdir(gitOnePath);
 	})(function () {
-		watcher = t(isGitRepo.watch, filePath, { watch: true });
+		watcher = t(gitMode.isRootWatcher, filePath, { watch: true });
 		watcher.on('change', function (path) {
 			events.push(path);
 		});
@@ -53,7 +53,7 @@ module.exports = function (t, a, d) {
 	}, DELAY))(delay(function () {
 		a(String(events), twoPath, "#2: Event");
 		events = [];
-		return t(isGitRepo.basic, filePath);
+		return t(gitMode.isRoot, filePath);
 	}, DELAY))(function (path) {
 		a(path, twoPath, "#2");
 
@@ -66,7 +66,7 @@ module.exports = function (t, a, d) {
 	}, DELAY))(delay(function () {
 		a(String(events), rootPath, "#3: Event");
 		events = [];
-		return t(isGitRepo.basic, filePath);
+		return t(gitMode.isRoot, filePath);
 	}, DELAY))(function (path) {
 		a(path, rootPath, "#3");
 
@@ -75,7 +75,7 @@ module.exports = function (t, a, d) {
 	})(delay(function () {
 		a(String(events), twoPath, "#4: Event");
 		events = [];
-		return t(isGitRepo.basic, filePath);
+		return t(gitMode.isRoot, filePath);
 	}, DELAY))(function (path) {
 		a(path, twoPath, "#4");
 
@@ -92,7 +92,7 @@ module.exports = function (t, a, d) {
 	})(delay(function () {
 		a(String(events), rootPath, "#5: Event");
 		events = [];
-		return t(isGitRepo.basic, filePath);
+		return t(gitMode.isRoot, filePath);
 	}, DELAY))(function (path) {
 		a(path, rootPath, "#5");
 

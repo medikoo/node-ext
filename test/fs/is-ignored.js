@@ -11,7 +11,7 @@ var fs        = require('fs')
   , writeFile = promisify(fs.writeFile)
   , unlink    = promisify(fs.unlink)
   , rmdir     = promisify(fs.rmdir)
-  , modes     = require('../../lib/fs/_ignorefile-modes')
+  , modes     = require('../../lib/fs/_ignore-modes')
 
   , pgPath = resolve(__dirname, '../__playground/fs/is-ignored');
 
@@ -36,7 +36,7 @@ module.exports = function (t, a, d) {
 			promise.close = noop;
 			return promise;
 		},
-		isRootWatch: testIsRoot
+		isRootWatcher: testIsRoot
 	};
 
 	deferred(mkdir(gitRoot), mkdir(onePath)(function () {
@@ -207,6 +207,7 @@ module.exports = function (t, a, d) {
 		t(null, twoFooPath, { globalRules: ['bar'] })(function (value) {
 			a(value, false, "Global: Not matching");
 		});
+		delete modes.test;
 		return deferred(rmdir(gitRoot), rmdir(twoPath)(function () {
 			return rmdir(onePath);
 		}))(false);

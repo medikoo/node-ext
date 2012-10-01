@@ -8,7 +8,8 @@ var fs        = require('fs')
   , mkdir     = promisify(fs.mkdir)
   , rmdir     = promisify(fs.rmdir)
 
-  , rootPath = resolve(__dirname, '../__playground/fs/is-gitrepo-root')
+  , isArray = Array.isArray
+  , rootPath = resolve(__dirname, '../../__playground/fs/_ignore-modes/git')
 
 module.exports = function (t, a, d) {
 	var gitRoot = resolve(rootPath, '.git')
@@ -21,6 +22,10 @@ module.exports = function (t, a, d) {
 	  , watcher, rootEvents = [], oneEvents = [], twoEvents = []
 	  , w1, w2, w3;
 
+
+	a(typeof t.filename, 'string', "Filename");
+	a((t.globalRules == null) || isArray(t.globalRules), true, "Global rules");
+
 	// Create /.git
 	mkdir(gitRoot)(function () {
 
@@ -31,15 +36,15 @@ module.exports = function (t, a, d) {
 		// Create /one/.git
 		return mkdir(gitOnePath);
 	})(function () {
-		w1 = t(rootPath, { watch: true });
+		w1 = t.isRootWatcher(rootPath);
 		w1.on('change', function (value) {
 			rootEvents.push(value);
 		});
-		w2 = t(onePath, { watch: true });
+		w2 = t.isRootWatcher(onePath);
 		w2.on('change', function (value) {
 			oneEvents.push(value);
 		});
-		w3 = t(twoPath, { watch: true });
+		w3 = t.isRootWatcher(twoPath);
 		w3.on('change', function (value) {
 			twoEvents.push(value);
 		});
@@ -67,7 +72,7 @@ module.exports = function (t, a, d) {
 		oneEvents = [];
 		twoEvents = [];
 
-		return deferred(t(rootPath), t(onePath), t(twoPath));
+		return deferred(t.isRoot(rootPath), t.isRoot(onePath), t.isRoot(twoPath));
 	}, 20))(function (data) {
 		a.deep(data, [true, true, true], "#2");
 
@@ -81,7 +86,7 @@ module.exports = function (t, a, d) {
 		oneEvents = [];
 		twoEvents = [];
 
-		return deferred(t(rootPath), t(onePath), t(twoPath));
+		return deferred(t.isRoot(rootPath), t.isRoot(onePath), t.isRoot(twoPath));
 	}, 20))(function (data) {
 		a.deep(data, [true, false, true], "#3");
 
@@ -95,7 +100,7 @@ module.exports = function (t, a, d) {
 		oneEvents = [];
 		twoEvents = [];
 
-		return deferred(t(rootPath), t(onePath), t(twoPath));
+		return deferred(t.isRoot(rootPath), t.isRoot(onePath), t.isRoot(twoPath));
 	}, 20))(function (data) {
 		a.deep(data, [true, false, false], "#4");
 
@@ -109,7 +114,7 @@ module.exports = function (t, a, d) {
 		oneEvents = [];
 		twoEvents = [];
 
-		return deferred(t(rootPath), t(onePath), t(twoPath));
+		return deferred(t.isRoot(rootPath), t.isRoot(onePath), t.isRoot(twoPath));
 	}, 20))(function (data) {
 		a.deep(data, [true, false, true], "#5");
 
@@ -123,7 +128,7 @@ module.exports = function (t, a, d) {
 		oneEvents = [];
 		twoEvents = [];
 
-		return deferred(t(rootPath), t(onePath), t(twoPath));
+		return deferred(t.isRoot(rootPath), t.isRoot(onePath), t.isRoot(twoPath));
 	}, 20))(function (data) {
 		a.deep(data, [true, false, false], "#6");
 	})(function () {
@@ -142,7 +147,7 @@ module.exports = function (t, a, d) {
 		oneEvents = [];
 		twoEvents = [];
 
-		return deferred(t(rootPath), t(onePath), t(twoPath));
+		return deferred(t.isRoot(rootPath), t.isRoot(onePath), t.isRoot(twoPath));
 	}, 20))(function (data) {
 		a.deep(data, [true, false, false], "#7");
 
