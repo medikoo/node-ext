@@ -4,7 +4,7 @@ var path      = require('path')
   , normalize = path.normalize
   , resolve   = path.resolve
 
-  , pgPath, upPath, t;
+  , pgPath, upPath;
 
 pgPath = resolve(__dirname, '../__playground/module/find-package-root');
 upPath = path.dirname(path.dirname(__dirname));

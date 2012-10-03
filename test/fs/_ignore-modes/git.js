@@ -9,7 +9,7 @@ var fs        = require('fs')
   , rmdir     = promisify(fs.rmdir)
 
   , isArray = Array.isArray
-  , rootPath = resolve(__dirname, '../../__playground/fs/_ignore-modes/git')
+  , rootPath = resolve(__dirname, '../../__playground/fs/_ignore-modes/git');
 
 module.exports = function (t, a, d) {
 	var gitRoot = resolve(rootPath, '.git')
@@ -17,11 +17,9 @@ module.exports = function (t, a, d) {
 	  , gitOnePath = resolve(onePath, '.git')
 	  , twoPath = resolve(onePath, 'two')
 	  , gitTwoPath = resolve(twoPath, '.git')
-	  , filePath = resolve(twoPath, 'file.xxx')
 
-	  , watcher, rootEvents = [], oneEvents = [], twoEvents = []
+	  , rootEvents = [], oneEvents = [], twoEvents = []
 	  , w1, w2, w3;
-
 
 	a(typeof t.filename, 'string', "Filename");
 	a((t.globalRules == null) || isArray(t.globalRules), true, "Global rules");

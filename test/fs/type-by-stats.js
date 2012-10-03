@@ -1,6 +1,6 @@
 'use strict';
 
-var lstat = require('fs').lstat
+var lstat = require('fs').lstat;
 
 module.exports = function (t, a, d) {
 	lstat(__filename, function (err, stat) {
@@ -17,5 +17,5 @@ module.exports = function (t, a, d) {
 			a(t(stat), 'directory', "Directory");
 			d();
 		});
-	})
+	});
 };

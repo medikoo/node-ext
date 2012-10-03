@@ -14,15 +14,13 @@ var fs        = require('fs')
   , unlink    = promisify(fs.unlink)
   , rmdir     = promisify(fs.rmdir)
 
-  , pgPath = resolve(__dirname, '../__playground/fs/_watch-alt')
+  , pgPath = resolve(__dirname, '../__playground/fs/_watch-alt');
 
 module.exports = function (t, a, d) {
-	var ondirchange = 0, onfilechange = 0, ondirend = 0, onfileend = 0, tmpPath
+	var ondirchange = 0, onfilechange = 0, ondirend = 0, onfileend = 0
 	  , DELAY = 200, DELAYWAIT = 2000
-	  , tmpFilePath, alt
 	  , dirPath = resolve(pgPath, 'tmpdir')
-	  , filePath = resolve(dirPath, 'tmpfile')
-	  , dirCurrent, fileCurrent
+	  , filePath = resolve(dirPath, 'tmpfile');
 
 	a.throws(function () {
 		t(filePath);
@@ -33,8 +31,8 @@ module.exports = function (t, a, d) {
 	}, DELAY)()(delay(function () {
 		var dirWatch;
 		dirWatch = t(dirPath);
-		dirWatch.on('change', function (e) { ++ondirchange; });
-		dirWatch.on('end', function (e) { ++ondirend; });
+		dirWatch.on('change', function () { ++ondirchange; });
+		dirWatch.on('end', function () { ++ondirend; });
 	}, DELAY))(delay(function () {
 		return writeFile(filePath, 'raz');
 	}, DELAY))(delay(function () {
@@ -43,8 +41,8 @@ module.exports = function (t, a, d) {
 		a(ondirend, 0, "Dir end: File created");
 		ondirchange = ondirend = 0;
 		fileWatch = t(filePath);
-		fileWatch.on('change', function () { ++onfilechange });
-		fileWatch.on('end', function () { ++onfileend });
+		fileWatch.on('change', function () { ++onfilechange; });
+		fileWatch.on('end', function () { ++onfileend; });
 	}, DELAYWAIT))(delay(function () {
 		return open(filePath, 'a')(function (fd) {
 			return write(fd, new Buffer('dwatrzy'), 0, 3, null)(function () {

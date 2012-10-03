@@ -9,7 +9,7 @@ var fs        = require('fs')
   , rmdir     = promisify(fs.rmdir)
   , gitMode   = require('../../lib/fs/_ignore-modes/git')
 
-  , rootPath = resolve(__dirname, '../__playground/fs/_find-root')
+  , rootPath = resolve(__dirname, '../__playground/fs/_find-root');
 
 module.exports = function (t, a, d) {
 	var gitRoot = resolve(rootPath, '.git')
@@ -21,7 +21,6 @@ module.exports = function (t, a, d) {
 	  , DELAY = 100
 
 	  , watcher, events = [];
-
 
 	// Create /.git
 	mkdir(gitRoot)(function () {

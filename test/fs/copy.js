@@ -2,7 +2,7 @@
 
 var path = require('path')
   , fs   = require('fs')
-  , pg   = path.resolve(__dirname, '../__playground/fs/copy')
+  , pg   = path.resolve(__dirname, '../__playground/fs/copy');
 
 module.exports = {
 	"Success": function (t, a, d) {

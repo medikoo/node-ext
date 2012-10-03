@@ -1,7 +1,8 @@
 'use strict';
 
 var resolve = require('path').resolve
-  , pg      = resolve(__dirname, '../__playground/module/is-module-not-found-error');
+
+  , pg = resolve(__dirname, '../__playground/module/is-module-not-found-error');
 
 module.exports = function (t, a) {
 	var path;

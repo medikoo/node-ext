@@ -14,14 +14,13 @@ var fs        = require('fs')
   , unlink    = promisify(fs.unlink)
   , rmdir     = promisify(fs.rmdir)
 
-  , pgPath = resolve(__dirname, '../__playground/fs/watch-path')
+  , pgPath = resolve(__dirname, '../__playground/fs/watch-path');
 
 module.exports = function (t, a, d) {
-	var ondirchange = [], onfilechange = [], tmpPath, tmpFilePath, alt
-	  , DELAY = 100
+	var ondirchange = [], onfilechange = [], DELAY = 100
 	  , dirPath = resolve(pgPath, 'tmpdir')
 	  , filePath = resolve(dirPath, 'tmpfile')
-	  , dirCurrent, fileCurrent, watch1, watch2
+	  , watch1, watch2;
 
 	watch1 = t(dirPath);
 	watch1.on('change', function (e) {

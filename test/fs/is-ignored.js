@@ -4,7 +4,6 @@ var fs        = require('fs')
   , resolve   = require('path').resolve
   , noop      = require('es5-ext/lib/Function/noop')
   , deferred  = require('deferred')
-  , ee        = require('event-emitter')
   , delay     = deferred.delay
   , promisify = deferred.promisify
   , mkdir     = promisify(fs.mkdir)
@@ -16,7 +15,7 @@ var fs        = require('fs')
   , pgPath = resolve(__dirname, '../__playground/fs/is-ignored');
 
 module.exports = function (t, a, d) {
-	var data, invoked = null, listener, testIsRoot
+	var invoked = null, listener, testIsRoot
 	  , DELAY = 100
 	  , gitRoot = resolve(pgPath, '.git')
 	  , rootFile = resolve(pgPath, '.gitignore')
@@ -27,7 +26,7 @@ module.exports = function (t, a, d) {
 	  , twoOtherFile = resolve(twoPath, '.ignore')
 	  , twoFooPath = resolve(twoPath, 'foo')
 
-	  , watcher
+	  , watcher;
 
 	modes.test = {
 		filename: '.ignore',
@@ -137,12 +136,12 @@ module.exports = function (t, a, d) {
 		return t('git', twoFooPath);
 	}, DELAY))(function (value) {
 		a(value, false, "Both #1");
-		return writeFile(rootFile, 'foo')
+		return writeFile(rootFile, 'foo');
 	})(delay(function () {
 		a(invoked, true, "Both #2");
 		invoked = null;
 		return t(['git', 'test'], twoFooPath);
-	}, DELAY))(function (value) {
+	}, DELAY * 2))(function (value) {
 		a(value, true, "Both #2");
 		return writeFile(twoOtherFile, '!foo');
 	})(delay(function () {

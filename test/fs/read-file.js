@@ -12,7 +12,7 @@ var deferred  = require('deferred')
   , writeFile = promisify(fs.writeFile)
   , unlink    = promisify(fs.unlink)
 
-  , pgPath = resolve(__dirname, '../__playground/fs/read-file')
+  , pgPath = resolve(__dirname, '../__playground/fs/read-file');
 
 module.exports = function (t) {
 	var DELAY = 100;
@@ -75,8 +75,8 @@ module.exports = function (t) {
 						return open(path, 'a')(function (fd) {
 							return write(fd, new Buffer('\nthree\n'), 0, 7,
 								null)(function () {
-									return close(fd);
-								});
+								return close(fd);
+							});
 						});
 					}, DELAY))(delay(function () {
 						a(isBuffer(invoked), true, "Emitted buffer");
@@ -85,8 +85,8 @@ module.exports = function (t) {
 						return open(path, 'a')(function (fd) {
 							return write(fd, new Buffer(''), 0, 0,
 								null)(function () {
-									return close(fd);
-								});
+								return close(fd);
+							});
 						});
 					}, DELAY))(delay(function () {
 						a(invoked, false, "Update without change");
@@ -120,8 +120,8 @@ module.exports = function (t) {
 					return open(path, 'a')(function (fd) {
 						return write(fd, new Buffer('\nfour\n'), 0, 6,
 							null)(function () {
-								return close(fd);
-							});
+							return close(fd);
+						});
 					});
 				}, DELAY))(delay(function () {
 					a(isBuffer(invoked), true, "Emitted buffer");
@@ -130,8 +130,8 @@ module.exports = function (t) {
 					return open(path, 'a')(function (fd) {
 						return write(fd, new Buffer(''), 0, 0,
 							null)(function () {
-								return close(fd);
-							});
+							return close(fd);
+						});
 					});
 				}, DELAY))(delay(function () {
 					a(invoked, false, "Update without change");
@@ -149,5 +149,5 @@ module.exports = function (t) {
 				}, DELAY)).end(d, d);
 			}
 		}
-	}
+	};
 };

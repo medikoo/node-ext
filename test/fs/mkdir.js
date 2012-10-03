@@ -5,12 +5,12 @@ var promisify = require('deferred').promisify
   , path      = require('path')
 
   , dirname = path.dirname, resolve = path.resolve
-	, lstat = promisify(fs.lstat), rmdir = promisify(fs.rmdir)
+  , lstat = promisify(fs.lstat), rmdir = promisify(fs.rmdir)
 
   , root = resolve(__dirname, '../__playground/fs/mkdir')
   , regular = resolve(root, 'foo')
   , existing = resolve(root, 'one')
-  , deep = resolve(root, 'foo', 'bar')
+  , deep = resolve(root, 'foo', 'bar');
 
 module.exports = function (t) {
 	return {
@@ -24,12 +24,12 @@ module.exports = function (t) {
 				}).end(d, d);
 			},
 			"Error": function (a, d) {
-				t(deep)(a.never, function (err) {
+				t(deep)(a.never, function () {
 					a.ok(true, "");
 				}).end(d, d);
 			},
 			"Existing": function (a, d) {
-				t(existing)(a.never, function (err) {
+				t(existing)(a.never, function () {
 					a.ok(true, "");
 				}).end(d, d);
 			}
