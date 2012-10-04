@@ -1,7 +1,7 @@
 {
   "name": "next",
   "version": "0.3.0",
-  "description": "Node.js extensions",
+  "description": "(deprecated) Node.js extensions",
   "keywords": [
     "addons",
     "extensions",
@@ -21,14 +21,12 @@
     "url": "https://github.com/medikoo/node-ext/issues"
   },
   "engines": {
-    "node": ">=0.4"
+    "node": ">=0.8"
   },
   "dependencies": {
     "deferred": "0.6.x",
     "es5-ext": "0.9.x",
-    "event-emitter": "~0.2.1",
-    "memoizee": "~0.2.2",
-    "minimatch": "0.2.x"
+    "memoizee": "~0.2.2"
   },
   "scripts": {
     "test": "node ./node_modules/tad/bin/tad lib"
