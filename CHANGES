@@ -1,3 +1,10 @@
+v0.3.0  --  2012.10.04
+Moved project into (DEPRECATED) state. It's being splitted into several packages
+* Reorganized module extensions (they will be moved into outer package)
+* Updated all dependencies to it's latest versions
+* Rewritten improved and moved all fs extensions into separate package (fs2)
+* Removed all path extensions in most cases they've addressed invalid use cases
+
 v0.2.14  --  2012.06.13
 * Update up to v0.8 branch of es5-ext and v0.5 branch of deferred
 * fs.writeFile - safe version of original writeFile, this one can be called
