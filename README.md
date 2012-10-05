@@ -14,6 +14,6 @@ __See [fs2](https://github.com/medikoo/fs2) package for Node.js fs package exten
 
 This functions would be reorganized and moved to outer module. If you're still interested see _lib/module_ folder for what's available (this API won't change in v0.3 release)
 
-## Tests
+## Tests [![Build Status](https://secure.travis-ci.org/medikoo/node-ext.png?branch=master)](https://secure.travis-ci.org/medikoo/node-ext)
 
 	$ npm test
