@@ -8,7 +8,7 @@ module.exports = function (t, a) {
 	a(t(require)(file), require(file), "Existing");
 
 	file = playground + '/sample-na';
-	a(t(require)(file), null, "Non existing");
+	a(t(require)(file), undefined, "Non existing");
 
 	file = playground + '/sample-error';
 	a.ok(t(require)(file) instanceof Error, "Evaluation error");
