@@ -1,5 +1,8 @@
+v0.3.1  --  2012.10.11
+* requireSilent: If module doesn't exist result with undefined instead of null
+
 v0.3.0  --  2012.10.04
-Moved project into (DEPRECATED) state. It's being splitted into several packages
+Moved project into (DEPRECATED) state. It's being split into several packages
 * Reorganized module extensions (they will be moved into outer package)
 * Updated all dependencies to it's latest versions
 * Rewritten improved and moved all fs extensions into separate package (fs2)
@@ -68,7 +71,7 @@ New functions:
 * path/endWithSlash - Return path ended with slash
 
 Improved:
-* Use lstat instead of stat in most functions (to avoid inifite recursion with
+* Use lstat instead of stat in most functions (to avoid infinite recursion with
   symbolic links)
 * findPackageRoot - cache resolved root paths
 * readdirFilesDeep - Do not crash on not accessible files
