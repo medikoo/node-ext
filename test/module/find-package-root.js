@@ -4,10 +4,9 @@ var path      = require('path')
   , normalize = path.normalize
   , resolve   = path.resolve
 
-  , pgPath, upPath;
+  , pgPath;
 
 pgPath = resolve(__dirname, '../__playground/module/find-package-root');
-upPath = path.dirname(path.dirname(__dirname));
 
 module.exports = {
 	"Detect by package.json": function (t, a, d) {

@@ -1,9 +1,9 @@
 'use strict';
 
 var resolve         = require('path').resolve
-  , isNotFoundError = require('../../lib/module/is-module-not-found-error');
+  , isNotFoundError = require('../../lib/module/is-module-not-found-error')
 
-var pg = resolve(__dirname, '../__playground/module/require-first-in-tree');
+  , pg = resolve(__dirname, '../__playground/module/require-first-in-tree');
 
 module.exports = function (t, a) {
 	var path = pg + '/first/dir'
