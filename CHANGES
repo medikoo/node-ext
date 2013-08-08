@@ -1,3 +1,9 @@
+v0.3.2  --  2013.08.08
+* Improve context and cache handling in requireInContext
+  Separeate modules cache pool for each context
+* Lint cleanup
+* Add missing licence file
+
 v0.3.1  --  2012.10.11
 * requireSilent: If module doesn't exist result with undefined instead of null
 
