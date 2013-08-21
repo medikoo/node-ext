@@ -1,3 +1,10 @@
+v0.3.3  --  2013.08.21
+* requireInContext fixes
+  - Expose filename path to virtual machine
+  - Fallback native modules requires to main context
+  - Fallback to global on context detection only when `context === global`
+* Update Travis CI configuration
+
 v0.3.2  --  2013.08.08
 * Improve context and cache handling in requireInContext
   Separeate modules cache pool for each context
