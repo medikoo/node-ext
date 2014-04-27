@@ -1,7 +1,8 @@
 {
   "name": "next",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "(deprecated) Node.js extensions",
+  "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "keywords": [
     "addons",
     "extensions",
@@ -10,29 +11,20 @@
     "nodejs",
     "node.js"
   ],
-  "author": "Mariusz Nowak <medikoo+node-ext@medikoo.com> (http://www.medikoo.com/)",
-  "main": "lib/index",
   "repository": {
     "type": "git",
     "url": "git://github.com/medikoo/node-ext.git"
-  },
-  "bugs": {
-    "email": "medikoo+node-ext@medikoo.com",
-    "url": "https://github.com/medikoo/node-ext/issues"
-  },
-  "engines": {
-    "node": ">=0.8"
   },
   "dependencies": {
     "deferred": "0.7.x",
     "es5-ext": "~0.10.2",
     "memoizee": "0.3.x"
   },
-  "scripts": {
-    "test": "node ./node_modules/tad/bin/tad"
-  },
   "devDependencies": {
     "tad": "~0.1.21"
+  },
+  "scripts": {
+    "test": "node ./node_modules/tad/bin/tad"
   },
   "licence": "MIT"
 }
