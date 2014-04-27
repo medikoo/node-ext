@@ -1,7 +1,7 @@
 'use strict';
 
 var resolve         = require('path').resolve
-  , isNotFoundError = require('../../lib/module/is-module-not-found-error')
+  , isNotFoundError = require('../../module/is-module-not-found-error')
 
   , pg = resolve(__dirname, '../__playground/module/require-first-in-tree');
 
