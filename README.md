@@ -1,4 +1,5 @@
-# node-ext - (Deprecated) Node.js extensions
+# node-ext
+## [Deprecated] Node.js extensions
 
 Functions that extend and complement Node.js API.  
 
@@ -10,10 +11,10 @@ __See [fs2](https://github.com/medikoo/fs2) package for Node.js fs package exten
 
 	$ npm install next
 
-## module extensions _(deprecated)_
+## module extensions _[deprecated]_
 
 This functions would be reorganized and moved to outer module. If you're still interested see _lib/module_ folder for what's available (this API won't change in v0.3 release)
 
-## Tests [![Build Status](https://api.travis-ci.org/medikoo/node-ext.png?branch=master)](https://travis-ci.org/medikoo/node-ext)
+## Tests [![Build Status](https://travis-ci.org/medikoo/node-ext.png)](https://travis-ci.org/medikoo/node-ext)
 
 	$ npm test
