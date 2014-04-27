@@ -24,15 +24,15 @@
     "node": ">=0.8"
   },
   "dependencies": {
-    "deferred": "~0.6.5",
-    "es5-ext": "git://github.com/medikoo/es5-ext.git",
-    "memoizee": "~0.2.5"
+    "deferred": "0.7.x",
+    "es5-ext": "~0.10.2",
+    "memoizee": "0.3.x"
   },
   "scripts": {
     "test": "node ./node_modules/tad/bin/tad lib"
   },
   "devDependencies": {
-    "tad": "~0.1.16"
+    "tad": "~0.1.21"
   },
   "licence": "MIT"
 }
