@@ -18,7 +18,7 @@
   "dependencies": {
     "deferred": "~0.7.5",
     "es5-ext": "~0.10.11",
-    "memoizee": "~0.3.9"
+    "memoizee": "~0.4.5"
   },
   "devDependencies": {
     "tad": "~0.2.4",
